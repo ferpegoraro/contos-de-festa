@@ -5,7 +5,7 @@
 
 ## Tarefas
 
-- [ ] Criar repositório Git (GitHub) com README documentando o projeto
+- [x] Criar repositório Git (GitHub) com README documentando o projeto
 - [ ] Configurar projeto Next.js com TypeScript e App Router
 - [ ] Instalar e configurar TailwindCSS + shadcn/ui para componentes
 - [ ] Configurar Fastify como servidor backend separado (pasta `/api` ou `/server`)
