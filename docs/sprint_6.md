@@ -1,27 +1,69 @@
-# Sprint 6 - Pagamentos (Stripe + PIX)
+# Sprint 6 - Sistema de Aluguéis (Rentals)
 
 **Período:** Semana 6  
-**Foco:** Integração de pagamentos
+**Foco:** Controle de aluguéis de kits
 
 ## Tarefas
 
-- [ ] Criar conta Stripe e obter chaves de API
-- [ ] Instalar SDK do Stripe no backend
-- [ ] Implementar rotas de pagamento:
-  - [ ] `POST /api/checkout/criar-sessao` - Criar sessão de checkout Stripe
-  - [ ] `POST /api/webhook/stripe` - Receber confirmação de pagamento
-  - [ ] `GET /api/compras/minhas` - Listar compras do usuário
-- [ ] Configurar webhook do Stripe para confirmar pagamentos
-- [ ] Implementar lógica de liberação de acesso ao curso após pagamento
-- [ ] No front-end:
-  - [ ] Botão "Comprar" no curso redirecionando para checkout
-  - [ ] Página de sucesso após pagamento
-  - [ ] Página de erro/cancelamento
-- [ ] **Bônus:** Integrar PIX via Stripe ou gateway brasileiro (Mercado Pago)
-- [ ] Testar fluxo completo em modo sandbox
+### Backend - Rotas de Aluguéis
+
+- [ ] `GET /rentals` - Listar aluguéis (admin)
+- [ ] `GET /rentals/:id` - Detalhes do aluguel (admin)
+- [ ] `POST /rentals` - Criar aluguel (admin)
+- [ ] `PUT /rentals/:id` - Atualizar aluguel (admin)
+- [ ] `PUT /rentals/:id/status` - Alterar status (PENDING → PAID → RETURNED)
+- [ ] `DELETE /rentals/:id` - Cancelar aluguel (admin)
+
+### Backend - Estrutura SOLID
+
+```
+api/src/
+├── http/controllers/
+│   └── rentals/
+│       ├── create-rental.controller.ts
+│       ├── list-rentals.controller.ts
+│       ├── get-rental.controller.ts
+│       ├── update-rental.controller.ts
+│       └── update-rental-status.controller.ts
+├── use-cases/
+│   └── rentals/
+│       ├── create-rental.ts
+│       ├── list-rentals.ts
+│       └── ...
+├── repositories/
+│   └── rentals-repository.ts
+```
+
+### Frontend - Gestão de Aluguéis
+
+- [ ] Página `/admin/rentals` - Lista de aluguéis
+  - [ ] Tabela com cliente, kit, data evento, status
+  - [ ] Filtros por status e data
+  - [ ] Busca por nome do cliente
+- [ ] Página `/admin/rentals/new` - Criar aluguel
+  - [ ] Selecionar kit (apenas disponíveis)
+  - [ ] Dados do cliente (nome, telefone, email)
+  - [ ] Data do evento e data de devolução
+  - [ ] Valor total e observações
+- [ ] Página `/admin/rentals/[id]` - Detalhes do aluguel
+  - [ ] Botões para alterar status
+  - [ ] Histórico de alterações
+
+### Lógica de Negócio
+
+- [ ] Ao criar aluguel: kit muda para RENTED
+- [ ] Ao devolver: kit volta para AVAILABLE
+- [ ] Validar conflito de datas (kit já alugado)
+- [ ] Notificação de aluguéis próximos (opcional)
+
+### Calendário (Opcional)
+
+- [ ] Visualização de calendário com aluguéis
+- [ ] Arrastar e soltar para reagendar
 
 ## Critérios de Conclusão
 
-- [ ] Pagamento teste funcionando no Stripe
-- [ ] Webhook confirmando e liberando acesso
-- [ ] Usuário vê curso comprado na sua conta
+- [ ] CRUD de aluguéis funcionando
+- [ ] Status do kit atualizado automaticamente
+- [ ] Validação de conflito de datas
+- [ ] Admin consegue gerenciar todos os aluguéis

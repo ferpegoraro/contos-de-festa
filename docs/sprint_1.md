@@ -1,6 +1,6 @@
 # Sprint 1 - Configuração Inicial
 
-**Período:** 22 a 28 de fevereiro  
+**Período:** Semana 1
 **Foco:** Setup do ambiente de desenvolvimento
 
 ## Tarefas
@@ -40,3 +40,50 @@
 
 - [x] Front e back rodando localmente sem erros
 - [x] Endpoint de health check respondendo
+
+---
+
+## Resumo do que foi feito
+
+### Repositório e Projeto
+
+- Criado repositório no GitHub: `contos-de-festa`
+- Projeto Next.js 16.1.6 com TypeScript, TailwindCSS v4 e App Router
+
+### Frontend (pasta `/src`)
+
+- Configurado shadcn/ui com tema Neutral
+- Criada função utilitária `cn()` em `/src/lib/utils.ts`
+- Estrutura de pastas preparada: `app`, `components`, `lib`, `hooks`, `contexts`, `types`
+
+### Backend (pasta `/api`)
+
+- Fastify configurado com CORS
+- Estrutura SOLID baseada no projeto GymPass:
+  - `/api/src/env` → Variáveis de ambiente
+  - `/api/src/http/controllers` → Controllers
+  - `/api/src/lib` → Bibliotecas
+  - `/api/src/repositories` → Repositórios
+  - `/api/src/use-cases` → Casos de uso
+  - `/api/src/utils` → Utilitários
+- Entry point: `server.ts` + `app.ts`
+- Endpoint `GET /` retornando `{ status: "ok" }`
+
+### Scripts configurados
+
+```json
+"dev": "concurrently \"npm run dev:front\" \"npm run dev:back\"",
+"dev:front": "next dev --port 3000",
+"dev:back": "tsx watch api/src/server.ts"
+```
+
+### Dependências instaladas
+
+- **Frontend:** next, react, tailwindcss, shadcn/ui (clsx, class-variance-authority, tailwind-merge)
+- **Backend:** fastify, @fastify/cors, @fastify/jwt, @fastify/cookie, tsx, concurrently, zod, dotenv
+
+### Ambiente
+
+- Frontend: `http://localhost:3000`
+- Backend: `http://localhost:3333`
+- Arquivo `.env.example` criado com variáveis necessárias

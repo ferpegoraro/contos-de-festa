@@ -5,9 +5,12 @@
 Plataforma web para empresa de **peg e monte** com:
 
 - Catálogo de kits para aluguel
+- Sistema de controle de aluguéis
 - Plataforma de cursos online
 - Sistema de pagamentos
 - Painel administrativo
+
+> **Prioridade:** KITS primeiro, CURSOS depois
 
 ## Stack Tecnológica
 
@@ -15,28 +18,48 @@ Plataforma web para empresa de **peg e monte** com:
 | -------------- | ----------------------- |
 | Frontend       | Next.js 16 + TypeScript |
 | Estilização    | TailwindCSS + shadcn/ui |
-| Backend        | Fastify                 |
+| Backend        | Fastify (SOLID)         |
 | Banco de Dados | PostgreSQL + Prisma     |
 | Autenticação   | JWT (@fastify/jwt)      |
 | Pagamentos     | Stripe (+ PIX)          |
-| Upload         | Cloudinary ou S3        |
+| Upload         | Cloudinary              |
 | Deploy Front   | Vercel                  |
 | Deploy Back    | Railway ou Render       |
 
 ## Resumo dos Sprints
 
-| Sprint | Foco                       | Status      |
-| ------ | -------------------------- | ----------- |
-| 1      | Configuração Inicial       | ⬜ Pendente |
-| 2      | Banco de Dados e Modelagem | ⬜ Pendente |
-| 3      | Autenticação               | ⬜ Pendente |
-| 4      | CRUD de Kits               | ⬜ Pendente |
-| 5      | CRUD de Cursos             | ⬜ Pendente |
-| 6      | Pagamentos (Stripe + PIX)  | ⬜ Pendente |
-| 7      | Área do Usuário            | ⬜ Pendente |
-| 8      | Painel Administrativo      | ⬜ Pendente |
-| 9      | Deploy e Infraestrutura    | ⬜ Pendente |
-| 10     | Polimento e Lançamento     | ⬜ Pendente |
+| Sprint | Foco                           | Status       |
+| ------ | ------------------------------ | ------------ |
+| 1      | Configuração Inicial           | ✅ Concluído |
+| 2      | Banco de Dados (Docker/Prisma) | ⬜ Pendente  |
+| 3      | Autenticação                   | ⬜ Pendente  |
+| 4      | **CRUD de Kits** (PRIORIDADE)  | ⬜ Pendente  |
+| 5      | **Painel Admin (Kits)**        | ⬜ Pendente  |
+| 6      | **Sistema de Aluguéis**        | ⬜ Pendente  |
+| 7      | **Deploy MVP (Kits)**          | ⬜ Pendente  |
+| ---    | --- **SITE NO AR** ---         | 🚀           |
+| 8      | CRUD de Cursos                 | ⬜ Futuro    |
+| 9      | Pagamentos + Área do Aluno     | ⬜ Futuro    |
+| 10     | Finalização Cursos             | ⬜ Futuro    |
+
+## Fases do Projeto
+
+### Fase 1: MVP - Kits e Aluguéis (Sprints 1-7) 🎯
+
+- Configuração do ambiente
+- Banco de dados
+- Autenticação
+- CRUD de kits e categorias
+- Painel admin para gestão
+- Sistema de aluguéis
+- **DEPLOY** → Site no ar com página "Cursos em breve"
+
+### Fase 2: Cursos Online (Sprints 8-10) 📚
+
+- CRUD de cursos, módulos e aulas
+- Pagamentos com Stripe
+- Área do aluno com progresso
+- Atualização do deploy
 
 ## Estimativa de Tempo
 
@@ -45,22 +68,28 @@ Plataforma web para empresa de **peg e monte** com:
 
 ## Arquivos de Sprint
 
-- [Sprint 1 - Configuração Inicial](./sprint_1.md)
+### Fase 1: MVP - Kits (Site no ar!)
+
+- [Sprint 1 - Configuração Inicial](./sprint_1.md) ✅
 - [Sprint 2 - Banco de Dados](./sprint_2.md)
 - [Sprint 3 - Autenticação](./sprint_3.md)
 - [Sprint 4 - CRUD de Kits](./sprint_4.md)
-- [Sprint 5 - CRUD de Cursos](./sprint_5.md)
-- [Sprint 6 - Pagamentos](./sprint_6.md)
-- [Sprint 7 - Área do Usuário](./sprint_7.md)
-- [Sprint 8 - Painel Admin](./sprint_8.md)
-- [Sprint 9 - Deploy](./sprint_9.md)
-- [Sprint 10 - Lançamento](./sprint_10.md)
+- [Sprint 5 - Painel Admin (Kits)](./sprint_5.md)
+- [Sprint 6 - Sistema de Aluguéis](./sprint_6.md)
+- [Sprint 7 - Deploy MVP](./sprint_7.md)
+
+### Fase 2: Cursos Online
+
+- [Sprint 8 - CRUD de Cursos](./sprint_8.md)
+- [Sprint 9 - Pagamentos + Área do Aluno](./sprint_9.md)
+- [Sprint 10 - Finalização](./sprint_10.md)
 
 ## Funcionalidades Futuras (Pós-MVP)
 
-- [ ] Sistema de agendamento de kits
+- [ ] Calendário visual de aluguéis
 - [ ] Cupons de desconto
 - [ ] Certificados de conclusão de cursos
 - [ ] Blog para SEO
 - [ ] App mobile (React Native)
 - [ ] Sistema de afiliados
+- [ ] Notificações por WhatsApp
