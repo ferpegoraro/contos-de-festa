@@ -1,69 +1,59 @@
-# Sprint 6 - Sistema de Aluguéis (Rentals)
+# Sprint 6 - Deploy + Polimento
 
 **Período:** Semana 6  
-**Foco:** Controle de aluguéis de kits
+**Foco:** Colocar o site no ar e polir a experiência
 
 ## Tarefas
 
-### Backend - Rotas de Aluguéis
+### Deploy - Frontend (Vercel)
 
-- [ ] `GET /rentals` - Listar aluguéis (admin)
-- [ ] `GET /rentals/:id` - Detalhes do aluguel (admin)
-- [ ] `POST /rentals` - Criar aluguel (admin)
-- [ ] `PUT /rentals/:id` - Atualizar aluguel (admin)
-- [ ] `PUT /rentals/:id/status` - Alterar status (PENDING → PAID → RETURNED)
-- [ ] `DELETE /rentals/:id` - Cancelar aluguel (admin)
+- [ ] Criar projeto na Vercel conectado ao repositório
+- [ ] Configurar variáveis de ambiente (URL da API, número do WhatsApp)
+- [ ] Configurar domínio personalizado (se tiver)
+- [ ] Testar build de produção
 
-### Backend - Estrutura SOLID
+### Deploy - Backend (Railway ou Render)
 
-```
-api/src/
-├── http/controllers/
-│   └── rentals/
-│       ├── create-rental.controller.ts
-│       ├── list-rentals.controller.ts
-│       ├── get-rental.controller.ts
-│       ├── update-rental.controller.ts
-│       └── update-rental-status.controller.ts
-├── use-cases/
-│   └── rentals/
-│       ├── create-rental.ts
-│       ├── list-rentals.ts
-│       └── ...
-├── repositories/
-│   └── rentals-repository.ts
-```
+- [ ] Criar projeto no serviço escolhido
+- [ ] Configurar PostgreSQL em produção
+- [ ] Configurar variáveis de ambiente (DATABASE_URL, JWT_SECRET, ADMIN_SECRET_KEY, Cloudinary)
+- [ ] Rodar migrations no banco de produção
+- [ ] Criar primeiro usuário admin usando a página de registro + chave secreta
 
-### Frontend - Gestão de Aluguéis
+### Configurações de Produção
 
-- [ ] Página `/admin/rentals` - Lista de aluguéis
-  - [ ] Tabela com cliente, kit, data evento, status
-  - [ ] Filtros por status e data
-  - [ ] Busca por nome do cliente
-- [ ] Página `/admin/rentals/new` - Criar aluguel
-  - [ ] Selecionar kit (apenas disponíveis)
-  - [ ] Dados do cliente (nome, telefone, email)
-  - [ ] Data do evento e data de devolução
-  - [ ] Valor total e observações
-- [ ] Página `/admin/rentals/[id]` - Detalhes do aluguel
-  - [ ] Botões para alterar status
-  - [ ] Histórico de alterações
+- [ ] Configurar CORS para aceitar apenas o domínio do frontend
+- [ ] Garantir HTTPS
+- [ ] Configurar Cloudinary em produção
 
-### Lógica de Negócio
+### Testes Finais
 
-- [ ] Ao criar aluguel: kit muda para RENTED
-- [ ] Ao devolver: kit volta para AVAILABLE
-- [ ] Validar conflito de datas (kit já alugado)
-- [ ] Notificação de aluguéis próximos (opcional)
+- [ ] Testar registro de admin com chave secreta
+- [ ] Testar login admin
+- [ ] Testar criar/editar/excluir kits com fotos
+- [ ] Testar catálogo público (filtros, busca, paginação)
+- [ ] Testar fluxo completo: escolher kits → carrinho → WhatsApp
+- [ ] Testar em mobile (iOS e Android)
 
-### Calendário (Opcional)
+### Polimento
 
-- [ ] Visualização de calendário com aluguéis
-- [ ] Arrastar e soltar para reagendar
+- [ ] Loading states em botões e páginas
+- [ ] Mensagens de erro amigáveis (não mostrar erros técnicos)
+- [ ] Responsividade em todas as telas
+- [ ] SEO básico: meta tags, Open Graph, título e descrição por página
+- [ ] Favicon e ícones
+- [ ] Página 404 personalizada
+
+### Documentação
+
+- [ ] README atualizado com instruções de setup do projeto
+- [ ] Guia simples para a proprietária (como fazer login, adicionar kits, subir fotos)
 
 ## Critérios de Conclusão
 
-- [ ] CRUD de aluguéis funcionando
-- [ ] Status do kit atualizado automaticamente
-- [ ] Validação de conflito de datas
-- [ ] Admin consegue gerenciar todos os aluguéis
+- [ ] Site acessível via URL pública
+- [ ] API respondendo em produção
+- [ ] Admin consegue gerenciar kits e fotos
+- [ ] Catálogo público funcionando com WhatsApp
+- [ ] Site bonito e funcional em desktop e mobile
+- [ ] 🎉 **SITE NO AR!**

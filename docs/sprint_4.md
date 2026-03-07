@@ -1,69 +1,52 @@
-# Sprint 4 - CRUD de Kits (PRIORIDADE)
+# Sprint 4 - Painel Admin + Upload de Imagens
 
 **Período:** Semana 4  
-**Foco:** Catálogo completo de kits de festa
+**Foco:** Interface admin para gerenciar kits e upload de fotos no Cloudinary
 
 ## Tarefas
 
-### Backend - Rotas
+### Backend - Upload de Imagens
 
-- [ ] `GET /kits` - Listar todos os kits (público)
-- [ ] `GET /kits/:slug` - Detalhes de um kit (público)
-- [ ] `POST /kits` - Criar kit (admin)
-- [ ] `PUT /kits/:id` - Atualizar kit (admin)
-- [ ] `DELETE /kits/:id` - Remover kit (admin)
+- [ ] Instalar `@fastify/multipart` para receber arquivos
+- [ ] Criar conta no Cloudinary e configurar variáveis de ambiente
+- [ ] `POST /kits/:id/images` - Upload de imagens (envia pro Cloudinary e salva URL no banco)
+- [ ] `DELETE /kits/:id/images/:imageId` - Remover imagem (remove do Cloudinary e do banco)
+- [ ] `PUT /kits/:id/images/reorder` - Reordenar imagens e definir imagem principal
 
-### Backend - Categorias
+### Frontend - Layout Admin
 
-- [ ] `GET /categories` - Listar categorias
-- [ ] `POST /categories` - Criar categoria (admin)
-- [ ] `PUT /categories/:id` - Atualizar categoria (admin)
-- [ ] `DELETE /categories/:id` - Remover categoria (admin)
+- [ ] Layout de admin com sidebar de navegação (`/admin`)
+- [ ] Header mostrando nome do usuário logado
+- [ ] Proteção de rota (se não for ADMIN, redireciona pro login)
 
-### Backend - Imagens
+### Frontend - Gestão de Kits
 
-- [ ] Instalar `@fastify/multipart` para upload
-- [ ] Configurar Cloudinary para armazenamento
-- [ ] `POST /kits/:id/images` - Upload de imagens
-- [ ] `DELETE /kits/:id/images/:imageId` - Remover imagem
+- [ ] Página `/admin/kits` - Lista de todos os kits
+  - [ ] Tabela com foto principal, nome, preço e categoria
+  - [ ] Botões de editar e excluir
+  - [ ] Busca por nome
+- [ ] Página `/admin/kits/new` - Criar novo kit
+  - [ ] Formulário com: nome, descrição, tema, preço, categoria
+  - [ ] Upload de múltiplas imagens com preview
+  - [ ] Escolher qual imagem é a principal
+  - [ ] Adicionar itens do kit (nome + quantidade)
+- [ ] Página `/admin/kits/[id]/edit` - Editar kit existente
 
-### Backend - Estrutura SOLID
+### Frontend - Gestão de Categorias
 
-```
-api/src/
-├── http/controllers/
-│   ├── kits/
-│   │   ├── create-kit.controller.ts
-│   │   ├── list-kits.controller.ts
-│   │   ├── get-kit.controller.ts
-│   │   ├── update-kit.controller.ts
-│   │   └── delete-kit.controller.ts
-│   └── categories/
-│       └── ...
-├── use-cases/
-│   ├── kits/
-│   │   ├── create-kit.ts
-│   │   ├── list-kits.ts
-│   │   └── ...
-│   └── categories/
-│       └── ...
-├── repositories/
-│   ├── kits-repository.ts
-│   └── categories-repository.ts
-```
+- [ ] Página `/admin/categories` - Lista de categorias
+- [ ] Modal para criar e editar categoria (nome, slug, ícone)
 
-### Frontend - Páginas Públicas
+### Componentes Reutilizáveis
 
-- [ ] Página de listagem de kits (`/kits`)
-- [ ] Página de detalhes do kit (`/kits/[slug]`)
-- [ ] Componente `KitCard` reutilizável
-- [ ] Filtros por categoria
-- [ ] Busca por nome
-- [ ] Paginação
+- [ ] `DataTable` - Tabela com busca
+- [ ] `ImageUpload` - Upload de imagens com preview
+- [ ] `KitForm` - Formulário de kit
+- [ ] `CategoryForm` - Formulário de categoria
 
 ## Critérios de Conclusão
 
-- [ ] CRUD completo de kits funcionando
-- [ ] CRUD de categorias funcionando
-- [ ] Upload de imagens funcionando
-- [ ] Listagem pública com filtros
+- [ ] Admin consegue criar, editar e excluir kits com fotos
+- [ ] Admin consegue gerenciar categorias
+- [ ] Upload de imagens para Cloudinary funcionando
+- [ ] Interface admin responsiva e funcional

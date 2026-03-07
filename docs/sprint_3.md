@@ -1,52 +1,81 @@
-# Sprint 3 - Autenticação
+# Sprint 3 - Auth Admin + CRUD de Kits
 
 **Período:** Semana 3  
-**Foco:** Sistema de login e registro (admin para gestão de kits)
+**Foco:** Login admin com chave secreta e CRUD completo de kits e categorias
 
 ## Tarefas
 
-### Backend
+### Backend - Configuração
 
-- [ ] Instalar dependências: `bcryptjs`
-- [ ] Criar `api/src/lib/prisma.ts` - Cliente Prisma
-- [ ] Criar `api/src/env/index.ts` - Validação de variáveis com Zod
-- [ ] Implementar rotas de autenticação:
-  - [ ] `POST /auth/register` - Registro de usuário
-  - [ ] `POST /auth/login` - Login com JWT
-  - [ ] `POST /auth/logout` - Logout (invalidar token)
-  - [ ] `GET /auth/me` - Dados do usuário logado
-- [ ] Criar middleware de verificação de JWT
-- [ ] Criar middleware de verificação de role (ADMIN)
-- [ ] Implementar validação de dados com Zod
+- [ ] Instalar `bcryptjs` para hash de senhas
+- [ ] Criar `api/src/env/index.ts` com validação de variáveis de ambiente usando Zod
+- [ ] Adicionar variável `ADMIN_SECRET_KEY` no `.env` (chave secreta para criar admins)
 
-### Frontend
+### Backend - Autenticação
 
-- [ ] Criar página de login (`/login`)
-- [ ] Criar página de registro (`/register`)
-- [ ] Criar contexto de autenticação (AuthContext)
-- [ ] Implementar proteção de rotas no front
-- [ ] Criar hook `useAuth` para gerenciar estado
+- [ ] `POST /auth/register` - Registro de admin (exige chave secreta no body)
+- [ ] `POST /auth/login` - Login com JWT
+- [ ] `GET /auth/me` - Dados do usuário logado
+- [ ] Middleware de verificação de JWT
+- [ ] Middleware de verificação de role ADMIN
 
-### Estrutura de Pastas (Backend)
+> **Como funciona o registro:** A rota recebe nome, email, senha e uma `secretKey`. O backend compara essa chave com a variável de ambiente `ADMIN_SECRET_KEY`. Se bater, cria o admin. Se não, recusa. Assim qualquer novo admin pode ser criado pelo front sem mexer no código.
+
+### Backend - CRUD de Kits
+
+- [ ] `GET /kits` - Listar kits (público)
+- [ ] `GET /kits/:slug` - Detalhes do kit (público)
+- [ ] `POST /kits` - Criar kit (admin)
+- [ ] `PUT /kits/:id` - Atualizar kit (admin)
+- [ ] `DELETE /kits/:id` - Remover kit (admin)
+
+### Backend - CRUD de Categorias
+
+- [ ] `GET /categories` - Listar categorias (público)
+- [ ] `POST /categories` - Criar categoria (admin)
+- [ ] `PUT /categories/:id` - Atualizar categoria (admin)
+- [ ] `DELETE /categories/:id` - Remover categoria (admin)
+
+### Backend - Estrutura de Pastas
 
 ```
 api/src/
+├── env/
+│   └── index.ts
 ├── http/
+│   ├── middlewares/
+│   │   ├── verify-jwt.ts
+│   │   └── verify-role.ts
 │   └── controllers/
-│       └── auth/
-│           ├── register.controller.ts
-│           ├── login.controller.ts
-│           └── me.controller.ts
+│       ├── auth/
+│       ├── kits/
+│       └── categories/
 ├── use-cases/
-│   └── auth/
-│       ├── register.ts
-│       └── authenticate.ts
+│   ├── auth/
+│   ├── kits/
+│   └── categories/
 ├── repositories/
-│   └── users-repository.ts
+│   ├── users-repository.ts
+│   ├── kits-repository.ts
+│   └── categories-repository.ts
+├── lib/
+│   └── prisma.ts
+├── app.ts
+└── server.ts
 ```
+
+### Frontend - Login
+
+- [ ] Página `/login` com formulário de email e senha
+- [ ] Página `/admin/register` com formulário de nome, email, senha e campo "Código de Acesso"
+- [ ] Contexto de autenticação (AuthContext)
+- [ ] Hook `useAuth` para gerenciar estado de login
+- [ ] Proteção de rotas admin (redirecionar se não logado)
 
 ## Critérios de Conclusão
 
-- [ ] Usuário consegue se registrar e fazer login
-- [ ] Rotas protegidas bloqueiam acesso sem token
-- [ ] Admin consegue acessar rotas administrativas
+- [ ] Admin consegue se registrar usando a chave secreta
+- [ ] Admin consegue fazer login
+- [ ] CRUD de kits funcionando via API
+- [ ] CRUD de categorias funcionando via API
+- [ ] Rotas admin protegidas por JWT + role

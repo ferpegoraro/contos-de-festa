@@ -2,15 +2,14 @@
 
 ## Visão Geral
 
-Plataforma web para empresa de **peg e monte** com:
+Site vitrine para empresa de **peg e monte** com:
 
-- Catálogo de kits para aluguel
-- Sistema de controle de aluguéis
-- Plataforma de cursos online
-- Sistema de pagamentos
-- Painel administrativo
+- Catálogo de kits com fotos
+- Painel admin para a proprietária gerenciar kits e fotos
+- Montagem de orçamento com envio automático via WhatsApp
+- Botão de WhatsApp flutuante
 
-> **Prioridade:** KITS primeiro, CURSOS depois
+> **Foco:** Site bonito, simples e funcional. Sem controle de estoque, sem pagamento online. O atendimento e pagamento (PIX) acontecem pelo WhatsApp.
 
 ## Stack Tecnológica
 
@@ -21,75 +20,50 @@ Plataforma web para empresa de **peg e monte** com:
 | Backend        | Fastify (SOLID)         |
 | Banco de Dados | PostgreSQL + Prisma     |
 | Autenticação   | JWT (@fastify/jwt)      |
-| Pagamentos     | Stripe (+ PIX)          |
 | Upload         | Cloudinary              |
 | Deploy Front   | Vercel                  |
 | Deploy Back    | Railway ou Render       |
 
 ## Resumo dos Sprints
 
-| Sprint | Foco                           | Status       |
-| ------ | ------------------------------ | ------------ |
-| 1      | Configuração Inicial           | ✅ Concluído |
-| 2      | Banco de Dados (Docker/Prisma) | ⬜ Pendente  |
-| 3      | Autenticação                   | ⬜ Pendente  |
-| 4      | **CRUD de Kits** (PRIORIDADE)  | ⬜ Pendente  |
-| 5      | **Painel Admin (Kits)**        | ⬜ Pendente  |
-| 6      | **Sistema de Aluguéis**        | ⬜ Pendente  |
-| 7      | **Deploy MVP (Kits)**          | ⬜ Pendente  |
-| ---    | --- **SITE NO AR** ---         | 🚀           |
-| 8      | CRUD de Cursos                 | ⬜ Futuro    |
-| 9      | Pagamentos + Área do Aluno     | ⬜ Futuro    |
-| 10     | Finalização Cursos             | ⬜ Futuro    |
+| Sprint | Foco                          | Status       |
+| ------ | ----------------------------- | ------------ |
+| 1      | Configuração Inicial          | ✅ Concluído |
+| 2      | Banco de Dados (Docker/Prisma)| ⬜ Pendente  |
+| 3      | Auth Admin + CRUD de Kits     | ⬜ Pendente  |
+| 4      | Painel Admin + Upload Imagens | ⬜ Pendente  |
+| 5      | Site Público + WhatsApp       | ⬜ Pendente  |
+| 6      | Deploy + Polimento            | ⬜ Pendente  |
 
-## Fases do Projeto
+## Como Funciona o Site
 
-### Fase 1: MVP - Kits e Aluguéis (Sprints 1-7) 🎯
+### Para o visitante (cliente):
+1. Entra no site e vê os kits disponíveis com fotos
+2. Pode filtrar por categoria
+3. Seleciona os itens que tem interesse
+4. Clica em "Solicitar Orçamento via WhatsApp"
+5. Abre o WhatsApp com mensagem pré-montada com os itens escolhidos
+6. Conversa com a proprietária, combina valores e paga via PIX
 
-- Configuração do ambiente
-- Banco de dados
-- Autenticação
-- CRUD de kits e categorias
-- Painel admin para gestão
-- Sistema de aluguéis
-- **DEPLOY** → Site no ar com página "Cursos em breve"
-
-### Fase 2: Cursos Online (Sprints 8-10) 📚
-
-- CRUD de cursos, módulos e aulas
-- Pagamentos com Stripe
-- Área do aluno com progresso
-- Atualização do deploy
-
-## Estimativa de Tempo
-
-- **Total:** 10 semanas
-- **Carga sugerida:** ~15-20h por semana
+### Para a proprietária (admin):
+1. Faz login no painel admin
+2. Adiciona/edita/remove kits
+3. Faz upload de fotos dos kits
+4. Gerencia categorias
 
 ## Arquivos de Sprint
 
-### Fase 1: MVP - Kits (Site no ar!)
-
 - [Sprint 1 - Configuração Inicial](./sprint_1.md) ✅
 - [Sprint 2 - Banco de Dados](./sprint_2.md)
-- [Sprint 3 - Autenticação](./sprint_3.md)
-- [Sprint 4 - CRUD de Kits](./sprint_4.md)
-- [Sprint 5 - Painel Admin (Kits)](./sprint_5.md)
-- [Sprint 6 - Sistema de Aluguéis](./sprint_6.md)
-- [Sprint 7 - Deploy MVP](./sprint_7.md)
-
-### Fase 2: Cursos Online
-
-- [Sprint 8 - CRUD de Cursos](./sprint_8.md)
-- [Sprint 9 - Pagamentos + Área do Aluno](./sprint_9.md)
-- [Sprint 10 - Finalização](./sprint_10.md)
+- [Sprint 3 - Auth Admin + CRUD de Kits](./sprint_3.md)
+- [Sprint 4 - Painel Admin + Upload](./sprint_4.md)
+- [Sprint 5 - Site Público + WhatsApp](./sprint_5.md)
+- [Sprint 6 - Deploy + Polimento](./sprint_6.md)
 
 ## Funcionalidades Futuras (Pós-MVP)
 
-- [ ] Calendário visual de aluguéis
-- [ ] Cupons de desconto
-- [ ] Certificados de conclusão de cursos
+- [ ] Plataforma de cursos online
+- [ ] Calendário visual de disponibilidade
 - [ ] Blog para SEO
-- [ ] App mobile (React Native)
-- [ ] Sistema de afiliados
-- [ ] Notificações por WhatsApp
+- [ ] Google Analytics
+- [ ] Página de FAQ
