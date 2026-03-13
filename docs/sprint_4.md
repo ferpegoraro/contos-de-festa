@@ -1,52 +1,46 @@
-# Sprint 4 - Painel Admin + Upload de Imagens
+# Sprint 4 - Catálogo de Kits + WhatsApp
 
-**Período:** Semana 4  
-**Foco:** Interface admin para gerenciar kits e upload de fotos no Cloudinary
+**Foco:** Listagem pública dos kits e sistema de orçamento via WhatsApp
 
 ## Tarefas
 
-### Backend - Upload de Imagens
+### Página de Kits (`/kits`)
 
-- [ ] Instalar `@fastify/multipart` para receber arquivos
-- [ ] Criar conta no Cloudinary e configurar variáveis de ambiente
-- [ ] `POST /kits/:id/images` - Upload de imagens (envia pro Cloudinary e salva URL no banco)
-- [ ] `DELETE /kits/:id/images/:imageId` - Remover imagem (remove do Cloudinary e do banco)
-- [ ] `PUT /kits/:id/images/reorder` - Reordenar imagens e definir imagem principal
+- [ ] Grid de cards com todos os kits
+- [ ] Filtro por categoria
+- [ ] Busca por nome
+- [ ] Paginação
+- [ ] Loading skeleton enquanto carrega
 
-### Frontend - Layout Admin
+### Página de Detalhes do Kit (`/kits/[slug]`)
 
-- [ ] Layout de admin com sidebar de navegação (`/admin`)
-- [ ] Header mostrando nome do usuário logado
-- [ ] Proteção de rota (se não for ADMIN, redireciona pro login)
+- [ ] Galeria de fotos (carrossel)
+- [ ] Nome, descrição completa, preço
+- [ ] Lista de itens inclusos no kit
+- [ ] Botão "Adicionar ao Orçamento"
+- [ ] Sugestão de kits relacionados (mesma categoria)
 
-### Frontend - Gestão de Kits
+### Sistema de Orçamento via WhatsApp
 
-- [ ] Página `/admin/kits` - Lista de todos os kits
-  - [ ] Tabela com foto principal, nome, preço e categoria
-  - [ ] Botões de editar e excluir
-  - [ ] Busca por nome
-- [ ] Página `/admin/kits/new` - Criar novo kit
-  - [ ] Formulário com: nome, descrição, tema, preço, categoria
-  - [ ] Upload de múltiplas imagens com preview
-  - [ ] Escolher qual imagem é a principal
-  - [ ] Adicionar itens do kit (nome + quantidade)
-- [ ] Página `/admin/kits/[id]/edit` - Editar kit existente
+- [ ] Componente `QuoteCart` (carrinho de orçamento)
+  - Ícone flutuante com contador de itens
+  - Drawer/modal com lista dos itens selecionados
+  - Botão de remover item
+  - Botão "Enviar Orçamento via WhatsApp"
+- [ ] Gerar link WhatsApp com mensagem pré-montada
+- [ ] Context do React para manter estado entre páginas
+- [ ] Variável `NEXT_PUBLIC_WHATSAPP_NUMBER`
 
-### Frontend - Gestão de Categorias
+### Componentes
 
-- [ ] Página `/admin/categories` - Lista de categorias
-- [ ] Modal para criar e editar categoria (nome, slug, ícone)
-
-### Componentes Reutilizáveis
-
-- [ ] `DataTable` - Tabela com busca
-- [ ] `ImageUpload` - Upload de imagens com preview
-- [ ] `KitForm` - Formulário de kit
-- [ ] `CategoryForm` - Formulário de categoria
+- [ ] `KitCard` — Card de kit para listagem
+- [ ] `ImageCarousel` — Galeria de fotos do kit
+- [ ] `CategoryFilter` — Filtro de categorias
+- [ ] `QuoteCart` — Carrinho de orçamento flutuante
 
 ## Critérios de Conclusão
 
-- [ ] Admin consegue criar, editar e excluir kits com fotos
-- [ ] Admin consegue gerenciar categorias
-- [ ] Upload de imagens para Cloudinary funcionando
-- [ ] Interface admin responsiva e funcional
+- [ ] Catálogo com filtros e busca funcionando
+- [ ] Detalhes do kit com galeria de fotos
+- [ ] Sistema de orçamento via WhatsApp completo
+- [ ] Tudo responsivo e bonito no mobile

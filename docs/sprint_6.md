@@ -1,59 +1,54 @@
-# Sprint 6 - Deploy + Polimento
+# Sprint 6 - Backend (Banco, Auth, API, Upload)
 
-**Período:** Semana 6  
-**Foco:** Colocar o site no ar e polir a experiência
+**Foco:** Toda a camada de backend — banco de dados, autenticação e API REST
 
 ## Tarefas
 
-### Deploy - Frontend (Vercel)
+### Docker + PostgreSQL
 
-- [ ] Criar projeto na Vercel conectado ao repositório
-- [ ] Configurar variáveis de ambiente (URL da API, número do WhatsApp)
-- [ ] Configurar domínio personalizado (se tiver)
-- [ ] Testar build de produção
+- [ ] Criar `docker-compose.yml` com PostgreSQL 16
+- [ ] Testar container
+- [ ] Configurar `DATABASE_URL` no `.env`
 
-### Deploy - Backend (Railway ou Render)
+### Prisma 6
 
-- [ ] Criar projeto no serviço escolhido
-- [ ] Configurar PostgreSQL em produção
-- [ ] Configurar variáveis de ambiente (DATABASE_URL, JWT_SECRET, ADMIN_SECRET_KEY, Cloudinary)
-- [ ] Rodar migrations no banco de produção
-- [ ] Criar primeiro usuário admin usando a página de registro + chave secreta
+- [ ] Instalar Prisma 6
+- [ ] Criar schema (User, Category, Kit, KitImage, KitItem)
+- [ ] Rodar migrations
+- [ ] Criar `api/src/lib/prisma.ts`
 
-### Configurações de Produção
+### Autenticação
 
-- [ ] Configurar CORS para aceitar apenas o domínio do frontend
-- [ ] Garantir HTTPS
-- [ ] Configurar Cloudinary em produção
+- [ ] `POST /auth/register` — Registro com chave secreta
+- [ ] `POST /auth/login` — Login JWT
+- [ ] `GET /auth/me` — Dados do usuário logado
+- [ ] Middleware JWT + Role ADMIN
 
-### Testes Finais
+### CRUD de Kits
 
-- [ ] Testar registro de admin com chave secreta
-- [ ] Testar login admin
-- [ ] Testar criar/editar/excluir kits com fotos
-- [ ] Testar catálogo público (filtros, busca, paginação)
-- [ ] Testar fluxo completo: escolher kits → carrinho → WhatsApp
-- [ ] Testar em mobile (iOS e Android)
+- [ ] `GET /kits` — Listar kits (público)
+- [ ] `GET /kits/:slug` — Detalhes (público)
+- [ ] `POST /kits` — Criar (admin)
+- [ ] `PUT /kits/:id` — Atualizar (admin)
+- [ ] `DELETE /kits/:id` — Remover (admin)
 
-### Polimento
+### CRUD de Categorias
 
-- [ ] Loading states em botões e páginas
-- [ ] Mensagens de erro amigáveis (não mostrar erros técnicos)
-- [ ] Responsividade em todas as telas
-- [ ] SEO básico: meta tags, Open Graph, título e descrição por página
-- [ ] Favicon e ícones
-- [ ] Página 404 personalizada
+- [ ] `GET /categories` — Listar (público)
+- [ ] `POST /categories` — Criar (admin)
+- [ ] `PUT /categories/:id` — Atualizar (admin)
+- [ ] `DELETE /categories/:id` — Remover (admin)
 
-### Documentação
+### Upload de Imagens
 
-- [ ] README atualizado com instruções de setup do projeto
-- [ ] Guia simples para a proprietária (como fazer login, adicionar kits, subir fotos)
+- [ ] Integrar Cloudinary
+- [ ] `POST /kits/:id/images` — Upload
+- [ ] `DELETE /kits/:id/images/:imageId` — Remover
+- [ ] `PUT /kits/:id/images/reorder` — Reordenar
 
 ## Critérios de Conclusão
 
-- [ ] Site acessível via URL pública
-- [ ] API respondendo em produção
-- [ ] Admin consegue gerenciar kits e fotos
-- [ ] Catálogo público funcionando com WhatsApp
-- [ ] Site bonito e funcional em desktop e mobile
-- [ ] 🎉 **SITE NO AR!**
+- [ ] Banco rodando com todas as tabelas
+- [ ] API REST completa e testada
+- [ ] Auth funcionando com JWT
+- [ ] Upload de imagens no Cloudinary

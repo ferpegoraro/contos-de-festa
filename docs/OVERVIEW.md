@@ -24,16 +24,27 @@ Site vitrine para empresa de **peg e monte** com:
 | Deploy Front   | Vercel                  |
 | Deploy Back    | Railway ou Render       |
 
-## Resumo dos Sprints
+## Identidade Visual
 
-| Sprint | Foco                          | Status       |
-| ------ | ----------------------------- | ------------ |
-| 1      | Configuração Inicial          | ✅ Concluído |
-| 2      | Banco de Dados (Docker/Prisma)| ⬜ Pendente  |
-| 3      | Auth Admin + CRUD de Kits     | ⬜ Pendente  |
-| 4      | Painel Admin + Upload Imagens | ⬜ Pendente  |
-| 5      | Site Público + WhatsApp       | ⬜ Pendente  |
-| 6      | Deploy + Polimento            | ⬜ Pendente  |
+- **Cor Principal (Carmim):** `#722e43`
+- **Rosa claro:** `#e8a0b4` (detalhes, bordas)
+- **Rosa escuro:** `#9b3a5a` (hover, variações)
+- **Dourado/Creme:** `#d4a853` (destaques, estrelinhas)
+- **Fundo:** `#fff9f5` (off-white quente)
+- **Texto:** `#2d1a22` (escuro vinho)
+- **Muted:** `#8c7080` (texto secundário)
+
+## Resumo dos Sprints (Frontend First)
+
+| Sprint | Foco                                    | Status       |
+| ------ | --------------------------------------- | ------------ |
+| 1      | Configuração Inicial                    | ✅ Concluído |
+| 2      | Design System + Layout Base             | ⬜ Pendente  |
+| 3      | Landing Page (Site Público)             | ⬜ Pendente  |
+| 4      | Catálogo de Kits + WhatsApp             | ⬜ Pendente  |
+| 5      | Painel Admin (Frontend)                 | ⬜ Pendente  |
+| 6      | Backend (Banco, Auth, API, Upload)      | ⬜ Pendente  |
+| 7      | Integração Front + Back + Deploy        | ⬜ Pendente  |
 
 ## Como Funciona o Site
 
@@ -54,11 +65,12 @@ Site vitrine para empresa de **peg e monte** com:
 ## Arquivos de Sprint
 
 - [Sprint 1 - Configuração Inicial](./sprint_1.md) ✅
-- [Sprint 2 - Banco de Dados](./sprint_2.md)
-- [Sprint 3 - Auth Admin + CRUD de Kits](./sprint_3.md)
-- [Sprint 4 - Painel Admin + Upload](./sprint_4.md)
-- [Sprint 5 - Site Público + WhatsApp](./sprint_5.md)
-- [Sprint 6 - Deploy + Polimento](./sprint_6.md)
+- [Sprint 2 - Design System + Layout Base](./sprint_2.md)
+- [Sprint 3 - Landing Page](./sprint_3.md)
+- [Sprint 4 - Catálogo + WhatsApp](./sprint_4.md)
+- [Sprint 5 - Painel Admin (Frontend)](./sprint_5.md)
+- [Sprint 6 - Backend (Banco, Auth, API)](./sprint_6.md)
+- [Sprint 7 - Integração + Deploy](./sprint_7.md)
 
 ## Funcionalidades Futuras (Pós-MVP)
 

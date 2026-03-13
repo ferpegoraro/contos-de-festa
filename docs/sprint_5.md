@@ -1,67 +1,52 @@
-# Sprint 5 - Site Público + WhatsApp
+# Sprint 5 - Painel Admin (Frontend)
 
-**Período:** Semana 5  
-**Foco:** Landing page, catálogo público e sistema de orçamento via WhatsApp
+**Foco:** Interface admin para a proprietária gerenciar kits e categorias
 
 ## Tarefas
 
-### Frontend - Landing Page
+### Layout Admin
 
-- [ ] Hero section com chamada principal e foto de destaque
-- [ ] Seção de kits em destaque (marcados como `featured`)
-- [ ] Seção de categorias para navegação rápida
-- [ ] Seção "Como Funciona" explicando os 3 passos: Escolha → Monte seu Orçamento → WhatsApp
-- [ ] Footer com informações de contato e redes sociais
-- [ ] Botão de WhatsApp flutuante (presente em todas as páginas)
+- [ ] Sidebar de navegação (`/admin`)
+- [ ] Header com nome do usuário logado
+- [ ] Proteção de rota (se não logado, redireciona pro login)
+- [ ] Layout responsivo (sidebar vira menu mobile)
 
-### Frontend - Catálogo de Kits
+### Autenticação (Frontend)
 
-- [ ] Página `/kits` - Listagem de todos os kits
-  - [ ] Cards com foto principal, nome e preço
-  - [ ] Filtro por categoria
-  - [ ] Busca por nome
-  - [ ] Paginação
-- [ ] Página `/kits/[slug]` - Detalhes do kit
-  - [ ] Galeria de fotos (carrossel)
-  - [ ] Descrição completa, preço e itens inclusos
-  - [ ] Botão "Adicionar ao Orçamento"
-  - [ ] Sugestão de kits relacionados (mesma categoria)
+- [ ] Página `/login` — formulário de email e senha
+- [ ] Página `/admin/register` — formulário com nome, email, senha e código de acesso
+- [ ] AuthContext para gerenciar estado de login
+- [ ] Hook `useAuth`
 
-### Frontend - Sistema de Orçamento via WhatsApp
+### Gestão de Kits
 
-> O visitante navega pelo site, vai adicionando kits ao "carrinho de orçamento". Quando terminar, clica num botão e abre o WhatsApp com uma mensagem pré-montada listando tudo que escolheu.
+- [ ] Página `/admin/kits` — Lista de todos os kits
+  - Tabela com foto, nome, preço, categoria
+  - Botões editar e excluir
+  - Busca por nome
+- [ ] Página `/admin/kits/new` — Criar novo kit
+  - Formulário: nome, descrição, tema, preço, categoria
+  - Upload de múltiplas imagens com preview
+  - Escolher imagem principal
+  - Adicionar itens do kit (nome + quantidade)
+- [ ] Página `/admin/kits/[id]/edit` — Editar kit existente
 
-- [ ] Componente `QuoteCart` (carrinho de orçamento)
-  - [ ] Ícone flutuante mostrando quantos itens foram selecionados
-  - [ ] Ao clicar, abre um drawer/modal com a lista dos itens
-  - [ ] Botão de remover item
-  - [ ] Botão "Enviar Orçamento via WhatsApp"
-- [ ] Ao clicar em "Enviar", gerar link do WhatsApp com mensagem tipo:
-  - "Olá! Tenho interesse nos seguintes kits: Mesa Branca - R$ 150, Arco Cinza - R$ 80... Gostaria de saber sobre disponibilidade!"
-- [ ] Salvar seleção no estado do app (não perder ao navegar entre páginas)
-- [ ] Variável de ambiente `NEXT_PUBLIC_WHATSAPP_NUMBER` com número da proprietária
+### Gestão de Categorias
 
-### Componentes Reutilizáveis
+- [ ] Página `/admin/categories` — Lista de categorias
+- [ ] Modal para criar e editar categoria (nome, slug, ícone)
 
-- [ ] `KitCard` - Card de kit para listagem
-- [ ] `WhatsAppFab` - Botão flutuante do WhatsApp
-- [ ] `QuoteCart` - Carrinho de orçamento
-- [ ] `ImageCarousel` - Galeria de fotos do kit
-- [ ] `CategoryFilter` - Filtro de categorias
+### Componentes Admin
 
-### Fluxo Completo do Visitante
-
-```
-Acessa o site → Navega pelos kits → Adiciona ao orçamento →
-Abre o carrinho → Clica "Enviar via WhatsApp" →
-WhatsApp abre com mensagem pronta → Conversa com a proprietária →
-Combina valores e paga via PIX
-```
+- [ ] `DataTable` — Tabela com busca
+- [ ] `ImageUpload` — Upload de imagens com preview
+- [ ] `KitForm` — Formulário de kit
+- [ ] `CategoryForm` — Formulário de categoria
 
 ## Critérios de Conclusão
 
-- [ ] Landing page bonita e responsiva
-- [ ] Catálogo com filtros e busca funcionando
-- [ ] Sistema de orçamento via WhatsApp funcionando
-- [ ] Botão flutuante do WhatsApp em todas as páginas
-- [ ] Site funcional em mobile
+- [ ] Admin consegue navegar pelo painel
+- [ ] Formulários de CRUD completos e funcionais (frontend)
+- [ ] Upload de imagens com preview (sem Cloudinary ainda)
+- [ ] Interface responsiva
+- [ ] Dados mockados prontos pra conectar com API
