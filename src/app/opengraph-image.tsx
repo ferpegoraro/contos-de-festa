@@ -29,7 +29,6 @@ export default async function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        { }
         <img src={logoSrc} width={220} height={219} alt="" />
 
         <div
