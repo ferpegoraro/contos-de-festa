@@ -1,15 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Instagram, Mail, MapPin, Phone, Heart, Sparkles } from "lucide-react";
+import { Instagram, MapPin, Heart, Sparkles } from "lucide-react";
+import { WhatsAppIcon } from "@/components/shared/whatsapp-icon";
 import { siteConfig, navLinks } from "@/constants/site";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export function Footer() {
   return (
     <footer className="relative bg-gradient-to-b from-[#2d1a22] via-[#3d2832] to-[#2d1a22] text-[#e8d5cc] overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#d4a853]/50 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#e8a0b4]/50 to-transparent" />
       <div className="absolute top-10 left-10 w-32 h-32 bg-[#722e43]/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-[#d4a853]/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-[#e8a0b4]/10 rounded-full blur-3xl" />
 
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-16 pb-8">
         {/* Main Content */}
@@ -18,7 +20,7 @@ export function Footer() {
           <div className="md:col-span-5">
             <div className="flex items-center gap-4 mb-6">
               <div className="relative">
-                <div className="absolute inset-0 bg-[#d4a853]/20 rounded-full blur-xl" />
+                <div className="absolute inset-0 bg-[#e8a0b4]/20 rounded-full blur-xl" />
                 <Image
                   src="/logo-transparente.png"
                   alt={siteConfig.name}
@@ -31,7 +33,7 @@ export function Footer() {
                 <p className="font-heading text-2xl font-bold text-white">
                   {siteConfig.name}
                 </p>
-                <p className="text-sm text-[#d4a853] font-body">
+                <p className="text-sm text-[#e8a0b4] font-body">
                   {siteConfig.tagline}
                 </p>
               </div>
@@ -45,23 +47,17 @@ export function Footer() {
                 href={siteConfig.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-[#d4a853]/20 border border-white/10 hover:border-[#d4a853]/50 flex items-center justify-center transition-all duration-300 group"
+                className="w-10 h-10 rounded-full bg-white/5 hover:bg-[#e8a0b4]/20 border border-white/10 hover:border-[#e8a0b4]/50 flex items-center justify-center transition-all duration-300 group"
               >
-                <Instagram className="w-5 h-5 text-white/60 group-hover:text-[#d4a853] transition-colors" />
+                <Instagram className="w-5 h-5 text-white/60 group-hover:text-[#e8a0b4] transition-colors" />
               </a>
               <a
-                href={`https://wa.me/${siteConfig.whatsappNumber}`}
+                href={buildWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 hover:bg-[#25D366]/20 border border-white/10 hover:border-[#25D366]/50 flex items-center justify-center transition-all duration-300 group"
               >
-                <Phone className="w-5 h-5 text-white/60 group-hover:text-[#25D366] transition-colors" />
-              </a>
-              <a
-                href={`mailto:${siteConfig.email}`}
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-[#e8a0b4]/20 border border-white/10 hover:border-[#e8a0b4]/50 flex items-center justify-center transition-all duration-300 group"
-              >
-                <Mail className="w-5 h-5 text-white/60 group-hover:text-[#e8a0b4] transition-colors" />
+                <WhatsAppIcon className="w-5 h-5 text-white/60 group-hover:text-[#25D366] transition-colors" />
               </a>
             </div>
           </div>
@@ -69,7 +65,7 @@ export function Footer() {
           {/* Links */}
           <div className="md:col-span-3">
             <h4 className="font-heading text-white font-semibold mb-5 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#d4a853]" />
+              <Sparkles className="w-4 h-4 text-[#e8a0b4]" />
               Navegação
             </h4>
             <ul className="space-y-3">
@@ -95,26 +91,15 @@ export function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href={`https://wa.me/${siteConfig.whatsappNumber}`}
+                  href={buildWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors group"
                 >
                   <span className="w-8 h-8 rounded-lg bg-[#25D366]/10 flex items-center justify-center group-hover:bg-[#25D366]/20 transition-colors">
-                    <Phone className="w-4 h-4 text-[#25D366]" />
+                    <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
                   </span>
                   WhatsApp
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors group"
-                >
-                  <span className="w-8 h-8 rounded-lg bg-[#d4a853]/10 flex items-center justify-center group-hover:bg-[#d4a853]/20 transition-colors">
-                    <Mail className="w-4 h-4 text-[#d4a853]" />
-                  </span>
-                  {siteConfig.email}
                 </a>
               </li>
               <li className="flex items-center gap-3 text-sm text-white/70">

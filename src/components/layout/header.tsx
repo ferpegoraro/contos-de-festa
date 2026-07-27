@@ -3,13 +3,17 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navLinks, siteConfig } from "@/constants/site";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { WhatsAppIcon } from "@/components/shared/whatsapp-icon";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +22,10 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (pathname.startsWith("/admin") || pathname === "/login") {
+    return null;
+  }
 
   return (
     <header
@@ -49,27 +57,38 @@ export function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative text-sm font-medium font-body text-white/90 hover:text-white px-4 py-2 transition-all duration-300 group"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[#e8a0b4] group-hover:w-3/4 transition-all duration-300 rounded-full" />
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "relative text-sm font-medium font-body px-4 py-2 transition-all duration-300 group",
+                    isActive ? "text-white" : "text-white/90 hover:text-white",
+                  )}
+                >
+                  {link.label}
+                  <span
+                    className={cn(
+                      "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-[#e8a0b4] transition-all duration-300 rounded-full",
+                      isActive ? "w-3/4" : "w-0 group-hover:w-3/4",
+                    )}
+                  />
+                </Link>
+              );
+            })}
           </nav>
 
           {/* CTA Desktop */}
           <div className="hidden md:flex items-center">
             <Link
-              href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`}
+              href={buildWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="relative overflow-hidden bg-white text-[#722e43] px-6 py-2.5 rounded-full text-sm font-bold font-body transition-all duration-300 inline-flex items-center gap-2 shadow-lg shadow-white/25 hover:shadow-white/50 hover:scale-105"
             >
-              <MessageCircle className="w-4 h-4" />
+              <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
               Fale Conosco
             </Link>
           </div>
@@ -110,13 +129,13 @@ export function Header() {
           ))}
           <div className="pt-4 mt-2 border-t border-white/10">
             <Link
-              href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`}
+              href={buildWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-2 bg-white text-[#722e43] px-6 py-3.5 rounded-full text-base font-bold font-body shadow-lg"
             >
-              <MessageCircle className="w-5 h-5" />
+              <WhatsAppIcon className="w-5 h-5 text-[#25D366]" />
               Fale Conosco
             </Link>
           </div>

@@ -1,15 +1,10 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { useIsAdminRoute } from "@/hooks/use-is-admin-route";
 import { Footer } from "./footer";
 
 export function ConditionalFooter() {
-  const pathname = usePathname();
-  
-  // Não mostrar footer na página inicial
-  if (pathname === "/") {
-    return null;
-  }
-  
+  const isAdmin = useIsAdminRoute();
+  if (isAdmin) return null;
   return <Footer />;
 }

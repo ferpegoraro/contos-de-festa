@@ -1,45 +1,58 @@
-# Sprint 3 - Landing Page (Site Público)
+# Sprint 3 - Landing Page (Seções Estáticas) ✅ Concluído
 
-**Foco:** Página inicial bonita e convidativa
+**Foco:** Completar a página inicial com seções que não dependem de dados do backend
 
 ## Tarefas
 
-### Hero Section
+### Hero Section ✅ (feito na Sprint 2)
 
-- [ ] Headline principal com chamada de ação
-- [ ] Subtítulo explicando o serviço de peg e monte
-- [ ] Botão CTA "Ver Nossos Kits"
-- [ ] Área para imagem de destaque (a proprietária sobe depois pelo admin)
+- [x] Headline principal com chamada de ação
+- [x] Subtítulo explicando o serviço de peg e monte
+- [x] Botão CTA "Ver Nossos Kits" → leva para `/kits`
+- [x] Botão CTA "Fale Conosco" → abre WhatsApp
 
-### Seção de Kits em Destaque
+### Seção "Como Funciona" ✅
 
-- [ ] Grid de cards com kits marcados como `featured`
-- [ ] Card mostra: imagem placeholder, nome, preço, botão "Ver Detalhes"
-- [ ] Dados mockados por enquanto (sem backend)
+- [x] 3 passos: Escolha → Monte seu Orçamento → WhatsApp
+- [x] Ícones e descrições curtas
+- [x] Posicionar abaixo do hero na home
 
-### Seção Categorias
+### Seção Social / Confiança ✅
 
-- [ ] Cards ou ícones das categorias (Aniversário, Casamento, etc.)
-- [ ] Navegação rápida para filtrar kits
+- [x] Depoimentos de clientes (3 depoimentos)
+- [x] Números/estatísticas (500+ festas, 98% satisfação, 30+ kits, 5+ anos)
 
-### Seção "Como Funciona"
+### Página Sobre (`/sobre`) ✅
 
-- [ ] 3 passos: Escolha → Monte seu Orçamento → WhatsApp
-- [ ] Ícones e descrições curtas
+- [x] História da empresa
+- [x] Foto da proprietária (placeholder para upload futuro)
+- [x] Valores e diferenciais (4 cards: carinho, praticidade, qualidade, atendimento)
+- [x] CTA para WhatsApp
 
-### Seção Social / Confiança
+### Página de Kits (`/kits`) ✅
 
-- [ ] Depoimentos de clientes (mockados)
-- [ ] Números/estatísticas (ex: "500+ festas realizadas")
+- [x] Rota criada com tema escuro
+- [x] Estado vazio ("Em breve!") com CTA para WhatsApp
 
-### Responsividade
+### Responsividade ✅
 
-- [ ] Mobile first — tudo funciona perfeitamente no celular
-- [ ] Testar em breakpoints sm, md, lg, xl
+- [x] Hero responsivo mobile first
+- [x] Todas as seções responsivas (grid adapta de 1 → 2 → 3/4 colunas)
 
 ## Critérios de Conclusão
 
-- [ ] Landing page completa e bonita
-- [ ] Todas as seções responsivas
-- [ ] Identidade visual consistente com a marca (carmim, rosa, dourado)
-- [ ] Dados mockados prontos pra serem substituídos pela API depois
+- [x] Landing page com todas as seções estáticas
+- [x] Página `/sobre` completa
+- [x] Identidade visual consistente (tema escuro, carmim, rosa, dourado)
+- [x] Tudo responsivo
+
+## Arquivos Criados/Modificados
+
+| Arquivo                                        | Ação       | Descrição                                      |
+| ---------------------------------------------- | ---------- | ---------------------------------------------- |
+| `src/components/sections/how-it-works.tsx`     | Criado     | Seção 3 passos (Escolha → Orçamento → WhatsApp)|
+| `src/components/sections/social-proof.tsx`     | Criado     | Stats + depoimentos de clientes                |
+| `src/components/sections/index.ts`             | Criado     | Barrel export das seções                        |
+| `src/app/page.tsx`                             | Modificado | Adicionou HowItWorks e SocialProof após hero   |
+| `src/app/sobre/page.tsx`                       | Criado     | Página Sobre com história, valores e CTA        |
+| `src/app/kits/page.tsx`                        | Criado     | Catálogo com estado vazio (Sprint anterior)      |

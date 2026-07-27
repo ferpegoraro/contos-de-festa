@@ -1,54 +1,73 @@
-# Sprint 6 - Backend (Banco, Auth, API, Upload)
+# Sprint 6 - Painel Admin (Frontend) ✅ Concluído
 
-**Foco:** Toda a camada de backend — banco de dados, autenticação e API REST
+**Foco:** Interface admin para a proprietária gerenciar kits e categorias, conectada à API
 
 ## Tarefas
 
-### Docker + PostgreSQL
+### Layout Admin
 
-- [ ] Criar `docker-compose.yml` com PostgreSQL 16
-- [ ] Testar container
-- [ ] Configurar `DATABASE_URL` no `.env`
+- [x] Sidebar de navegação (`/admin`)
+- [x] Header com nome do usuário logado
+- [x] Proteção de rota (se não logado, redireciona pro login)
+- [x] Layout responsivo (sidebar vira menu mobile)
 
-### Prisma 6
+### Autenticação (Frontend)
 
-- [ ] Instalar Prisma 6
-- [ ] Criar schema (User, Category, Kit, KitImage, KitItem)
-- [ ] Rodar migrations
-- [ ] Criar `api/src/lib/prisma.ts`
+- [x] Página `/login` — formulário de email e senha
+- [x] Página `/admin/register` — formulário com nome, email, senha e código de acesso
+- [x] AuthContext para gerenciar estado de login
+- [x] Hook `useAuth`
 
-### Autenticação
+### Gestão de Kits
 
-- [ ] `POST /auth/register` — Registro com chave secreta
-- [ ] `POST /auth/login` — Login JWT
-- [ ] `GET /auth/me` — Dados do usuário logado
-- [ ] Middleware JWT + Role ADMIN
+- [x] Página `/admin/kits` — Lista de todos os kits
+  - Tabela com foto, nome, preço, categoria
+  - Botões editar e excluir
+  - Busca por nome
+- [x] Página `/admin/kits/new` — Criar novo kit
+  - Formulário: nome, descrição, tema, preço, categoria
+  - Upload de múltiplas imagens com preview
+  - Escolher imagem principal
+  - Adicionar itens do kit (nome + quantidade)
+- [x] Página `/admin/kits/[id]/edit` — Editar kit existente
 
-### CRUD de Kits
+### Gestão de Categorias
 
-- [ ] `GET /kits` — Listar kits (público)
-- [ ] `GET /kits/:slug` — Detalhes (público)
-- [ ] `POST /kits` — Criar (admin)
-- [ ] `PUT /kits/:id` — Atualizar (admin)
-- [ ] `DELETE /kits/:id` — Remover (admin)
+- [x] Página `/admin/categories` — Lista de categorias
+- [x] Modal para criar e editar categoria (nome, slug, ícone)
 
-### CRUD de Categorias
+### Gestão de Tipos de Kit
 
-- [ ] `GET /categories` — Listar (público)
-- [ ] `POST /categories` — Criar (admin)
-- [ ] `PUT /categories/:id` — Atualizar (admin)
-- [ ] `DELETE /categories/:id` — Remover (admin)
+- [x] Página `/admin/kit-types` — Lista dos tipos cadastrados (Kit de Mesa, Kit 1, Kit 2, Kit 3, etc.)
+  - Tabela com nome e slug
+  - Botões editar e excluir
+- [x] Modal para criar e editar tipo de kit (nome, slug opcional)
+- [x] Slug auto-gerado a partir do nome (consumindo `POST /kit-types`)
+- [x] No `KitForm`, dropdown de tipo de kit consumindo `GET /kit-types`
 
-### Upload de Imagens
+### Componentes Admin
 
-- [ ] Integrar Cloudinary
-- [ ] `POST /kits/:id/images` — Upload
-- [ ] `DELETE /kits/:id/images/:imageId` — Remover
-- [ ] `PUT /kits/:id/images/reorder` — Reordenar
+- [x] `DataTable` — Tabela com busca
+- [x] `ImageUpload` — Upload de imagens com preview
+- [x] `KitForm` — Formulário de kit
+- [x] `CategoryForm` — Formulário de categoria
+- [x] `KitTypeForm` — Formulário de tipo de kit
+
+### Padrão de Consumo da API
+
+> Antes de espalhar `fetch` pelas páginas, criar a base centralizada. Evita duplicar loading/erro e prepara terreno para a Sprint 8.
+
+- [x] Cliente HTTP em `src/lib/api/client.ts` (baseUrl, header de Auth, tratamento de erro)
+- [x] Hooks tipados em `src/hooks/api/`:
+  - `useKits(filters)`, `useKit(slug)`
+  - `useCategories()`, `useKitTypes()`
+- [x] Para mutações (criar/editar/excluir): expor funções que revalidem o cache (hoje via `reload()` do hook — SWR fica para Sprint 8)
+- [ ] Formulários do admin com `react-hook-form` + Zod (mesmo schema do backend, importado) — adiado para Sprint 8
 
 ## Critérios de Conclusão
 
-- [ ] Banco rodando com todas as tabelas
-- [ ] API REST completa e testada
-- [ ] Auth funcionando com JWT
-- [ ] Upload de imagens no Cloudinary
+- [x] Admin consegue navegar pelo painel
+- [x] Formulários de CRUD conectados com a API (Sprint 5)
+- [x] Upload de imagens funcionando via Cloudinary
+- [x] Admin consegue cadastrar/editar/excluir tipos de kit (Kit de Mesa, Kit 1, Kit 2, Kit 3...) e usá-los no formulário de Kit
+- [x] Interface responsiva

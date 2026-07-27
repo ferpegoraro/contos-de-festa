@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         Role     @default(ADMIN)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model KitType {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  price     Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  kits  Kit[]
+  items KitTypeItem[]
+
+  @@map("kit_types")
+}
+
+model Item {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  kitTypeItems KitTypeItem[]
+
+  @@map("items")
+}
+
+model KitTypeItem {
+  id        String  @id @default(uuid())
+  kitTypeId String  @map("kit_type_id")
+  itemId    String  @map("item_id")
+  quantity  Int?
+
+  kitType KitType @relation(fields: [kitTypeId], references: [id], onDelete: Cascade)
+  item    Item    @relation(fields: [itemId], references: [id])
+
+  @@unique([kitTypeId, itemId])
+  @@index([kitTypeId])
+  @@index([itemId])
+  @@map("kit_type_items")
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  icon        String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  kits Kit[]
+
+  @@map("categories")
+}
+
+model Kit {
+  id               String   @id @default(uuid())
+  name             String
+  slug             String   @unique
+  description      String
+  shortDescription String?  @map("short_description")
+  priceOverride    Decimal? @db.Decimal(10, 2) @map("price_override")
+  featured         Boolean  @default(false)
+  kitTypeId        String   @map("kit_type_id")
+  categoryId       String   @map("category_id")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  kitType  KitType    @relation(fields: [kitTypeId], references: [id])
+  category Category   @relation(fields: [categoryId], references: [id])
+  images   KitImage[]
+
+  @@index([categoryId])
+  @@index([kitTypeId])
+  @@index([featured])
+  @@map("kits")
+}
+
+model KitImage {
+  id        String   @id @default(uuid())
+  kitId     String   @map("kit_id")
+  url       String
+  publicId  String   @map("public_id")
+  alt       String?
+  order     Int      @default(0)
+  isPrimary Boolean  @default(false) @map("is_primary")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  kit Kit @relation(fields: [kitId], references: [id], onDelete: Cascade)
+
+  @@index([kitId])
+  @@map("kit_images")
+}
+

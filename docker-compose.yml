@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: contos-de-festas-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: contos
+      POSTGRES_PASSWORD: contos
+      POSTGRES_DB: contos_de_festas
+    ports:
+      - "5432:5432"
+    volumes:
+      - contos_pg_data:/var/lib/postgresql/data
+
+volumes:
+  contos_pg_data:

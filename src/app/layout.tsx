@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Nunito } from "next/font/google";
+import { Toaster } from "sonner";
 import { Header, ConditionalFooter } from "@/components/layout";
 import { WhatsAppFab } from "@/components/shared/whatsapp-fab";
+import { QuoteProvider } from "@/contexts/quote-context";
+import { AuthProvider } from "@/contexts/auth-context";
+import { QuoteCart } from "@/components/kits";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -18,7 +22,14 @@ const nunito = Nunito({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://contosdefestas.com.br");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Contos de Festa | Pegue & Monte",
     template: "%s | Contos de Festa",
@@ -33,6 +44,20 @@ export const metadata: Metadata = {
     "festa infantil",
     "decoração aniversário",
   ],
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Contos de Festa",
+    title: "Contos de Festa | Pegue & Monte",
+    description:
+      "Aluguel de kits de decoração para festas. Escolha, monte e encante.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contos de Festa | Pegue & Monte",
+    description:
+      "Aluguel de kits de decoração para festas. Escolha, monte e encante.",
+  },
 };
 
 export default function RootLayout({
@@ -43,10 +68,22 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${playfair.variable} ${nunito.variable}`}>
-        <Header />
-        <main>{children}</main>
-        <ConditionalFooter />
-        <WhatsAppFab />
+        <AuthProvider>
+          <QuoteProvider>
+            <Header />
+            <main>{children}</main>
+            <ConditionalFooter />
+            <QuoteCart />
+            <WhatsAppFab />
+            <Toaster
+              richColors
+              position="bottom-right"
+              toastOptions={{
+                style: { fontFamily: "var(--font-body)" },
+              }}
+            />
+          </QuoteProvider>
+        </AuthProvider>
       </body>
     </html>
   );
