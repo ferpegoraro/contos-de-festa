@@ -132,7 +132,7 @@ export default function KitsAdminPage() {
         description="Cadastre, edite ou remova kits e suas fotos."
         actions={
           <Link
-            href="/admin/kits/new"
+            href="/admin/kits/form"
             className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold font-body px-4 py-2.5 rounded-xl text-sm transition-colors shadow-md shadow-primary/10"
           >
             <Plus className="w-4 h-4" />
@@ -160,7 +160,7 @@ export default function KitsAdminPage() {
           actions={(row) => (
             <>
               <Link
-                href={`/admin/kits/${row.id}/edit`}
+                href={`/admin/kits/form?id=${row.id}`}
                 className="p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-lg transition-colors"
                 aria-label={`Editar ${row.name}`}
               >

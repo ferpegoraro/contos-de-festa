@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
   Package,
   Tags,
   Boxes,
@@ -19,7 +18,6 @@ import { useAuth } from "@/contexts/auth-context";
 import { siteConfig } from "@/constants/site";
 
 const navItems = [
-  { href: "/admin", label: "Início", icon: LayoutDashboard, exact: true },
   { href: "/admin/kits", label: "Kits", icon: Package },
   { href: "/admin/categories", label: "Categorias", icon: Tags },
   { href: "/admin/kit-types", label: "Tipos de Kit", icon: Boxes },
@@ -92,10 +90,9 @@ export function AdminSidebar({ open, onClose }: SidebarProps) {
 
         {/* Nav */}
         <nav className="flex-1 p-4 space-y-1">
-          {navItems.map(({ href, label, icon: Icon, exact }) => {
-            const isActive = exact
-              ? pathname === href
-              : pathname === href || pathname.startsWith(`${href}/`);
+          {navItems.map(({ href, label, icon: Icon }) => {
+            const isActive =
+              pathname === href || pathname.startsWith(`${href}/`);
             return (
               <Link
                 key={href}

@@ -51,9 +51,11 @@ export const metadata: Metadata = {
     title: "Contos de Festa | Pegue & Monte",
     description:
       "Aluguel de kits de decoração para festas. Escolha, monte e encante.",
+    images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/og.png"],
     title: "Contos de Festa | Pegue & Monte",
     description:
       "Aluguel de kits de decoração para festas. Escolha, monte e encante.",

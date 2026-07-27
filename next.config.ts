@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "res.cloudinary.com" },
     ],
   },
+  async redirects() {
+    // O painel abre direto na lista de Kits (uma rota a menos → cabe no
+    // plano free da Vercel; roteamento, não gera função).
+    return [{ source: "/admin", destination: "/admin/kits", permanent: false }];
+  },
   async rewrites() {
     // Proxy opcional para produção: com API_PROXY_TARGET setado (URL do
     // backend no Render/Railway), o browser chama /api/* no próprio domínio
