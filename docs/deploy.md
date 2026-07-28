@@ -54,23 +54,30 @@ Plano escolhido: **API + banco sempre ligados (sem cold start), custo baixo e co
 
 > Se por qualquer motivo (bug, loop) o uso chegar em US$12, o Railway **pausa o serviço** em vez de continuar cobrando. Pior caso = site tira uma soneca, **nunca uma dívida**. No dia a dia o custo fica em ~US$5–8; o US$12 é só a rede de segurança.
 
-## 3. Frontend — Vercel (vercel.com)
+## 3. Frontend — Railway (2º serviço, mesmo projeto)
 
-- [ ] **Add New → Project** → importar o repositório (Next.js, detecta sozinho)
-- [ ] Variáveis de ambiente:
+> **Por que não a Vercel?** O plano free da Vercel limita a **12 Serverless Functions** por deploy. O Next.js App Router cria ~2 funções por página (HTML + dados) → nosso site gera ~28, estoura o limite, e não há config que resolva sem mutilar o site. No Railway o Next roda como **servidor de verdade**: zero limite de funções, tudo funciona. (Pode apagar o projeto da Vercel.)
+
+- [ ] No **mesmo projeto** do Railway: **+ New → GitHub Repo** → `contos-de-festa` (cria um 2º serviço)
+- [ ] Nesse novo serviço, **Settings**:
+  - **Build Command:** `npm ci && npm run build`
+  - **Start Command:** `npm start`
+- [ ] **Variables** do serviço do front:
 
   | Variável | Valor |
   | --- | --- |
-  | `API_PROXY_TARGET` | URL da API no Railway (ex.: `https://SEU-APP.up.railway.app`) |
+  | `API_PROXY_TARGET` | URL pública da API (ex.: `https://contos-de-festa-production.up.railway.app`) |
   | `NEXT_PUBLIC_API_URL` | `/api` ← modo proxy (cookie de login funciona) |
   | `NEXT_PUBLIC_WHATSAPP_NUMBER` | `5511964656024` |
 
-- [ ] Deploy → copiar a URL da Vercel
-- [ ] Voltar no **Railway** e preencher `FRONTEND_URL` com essa URL (CORS)
+- [ ] **Settings → Networking → Generate Domain** → essa é a **URL do site**
+- [ ] Abrir a URL → o site deve carregar 🎉
 
-> **Por que o proxy?** O cookie de login é `SameSite=Lax`. Vercel e Railway são domínios diferentes — sem o proxy o navegador não enviaria o cookie e o login quebraria. Com `NEXT_PUBLIC_API_URL=/api`, o browser fala só com o domínio do site e o Next repassa pro Railway.
+> **Como o login funciona:** o Next (servidor) recebe `/api/*` e repassa pra API internamente. O browser fala só com o domínio do site → o cookie httpOnly é first-party (`SameSite=Lax`) → segurança intacta, sem gambiarra. Mesmo esquema que a gente montou, só que num host sem o limite de funções.
 >
-> ⚠️ Efeito colateral do proxy: a Vercel limita upload a **4,5MB** por request. Fotos maiores falham no painel — comprimir antes, ou usar o subdomínio próprio do passo 4 (`api.contosdefestas.com.br`), que dispensa o proxy.
+> 💡 Custo: o front é mais um serviço sempre-ligado (~US$2-3/mês). Total (front + API + banco) ≈ **US$6-8/mês**, confortável abaixo do teto de US$12.
+>
+> ⚠️ Se o site não subir na porta certa, troca o Start Command por `npx next start -p $PORT`.
 
 ## 4. Domínio — registro.br (`.com.br`)
 
