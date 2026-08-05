@@ -26,7 +26,7 @@ const nunito = Nunito({
 // Vercel renderizar TODAS as páginas sob demanda (uma função por rota →
 // estoura o limite do plano free). NEXT_PUBLIC_* é embutido no build.
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://contosdefestas.com.br";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://contosdefesta.com.br";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
