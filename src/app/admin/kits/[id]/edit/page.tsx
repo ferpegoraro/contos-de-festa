@@ -36,16 +36,13 @@ export default function EditKitPage({
   if (!kit) {
     return (
       <div className="max-w-2xl mx-auto text-center py-20">
-        <h1 className="font-heading text-xl font-bold text-white">
+        <h1 className="font-heading text-xl font-bold text-[#f2e8ec]">
           Kit não encontrado
         </h1>
-        <p className="text-sm text-white/55 mt-2 font-body">
+        <p className="text-sm text-[#bda3ac] mt-2 font-body">
           O kit pode ter sido removido.
         </p>
-        <Link
-          href="/admin/kits"
-          className="inline-block mt-4 text-sm font-semibold text-[#e8a0b4] hover:text-white"
-        >
+        <Link href="/admin/kits" className="inline-block mt-4 adm-link">
           Voltar para a lista
         </Link>
       </div>
@@ -56,7 +53,7 @@ export default function EditKitPage({
     <div className="max-w-3xl mx-auto">
       <Link
         href="/admin/kits"
-        className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white font-body mb-4 transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm text-[#8f7681] hover:text-[#f2e8ec] font-body mb-4 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         Voltar
@@ -64,11 +61,11 @@ export default function EditKitPage({
 
       <PageHeader title="Editar kit" description={kit.name} />
 
-      <section className="bg-white/[0.04] backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8 mb-8">
-        <h2 className="font-heading text-lg font-bold text-white mb-1">
+      <section className="adm-panel p-6 sm:p-8 mb-8">
+        <h2 className="font-heading text-lg font-bold text-[#f2e8ec] mb-1">
           Dados do kit
         </h2>
-        <p className="text-sm text-white/55 font-body mb-6">
+        <p className="text-sm text-[#bda3ac] font-body mb-6">
           Nome, descrição, preço, categoria e itens inclusos.
         </p>
         <KitForm
@@ -82,11 +79,11 @@ export default function EditKitPage({
         />
       </section>
 
-      <section className="bg-white/[0.04] backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8">
-        <h2 className="font-heading text-lg font-bold text-white mb-1">
+      <section className="adm-panel p-6 sm:p-8">
+        <h2 className="font-heading text-lg font-bold text-[#f2e8ec] mb-1">
           Fotos
         </h2>
-        <p className="text-sm text-white/55 font-body mb-6">
+        <p className="text-sm text-[#bda3ac] font-body mb-6">
           Envie quantas fotos quiser e marque uma como capa.
         </p>
         <ImageUpload

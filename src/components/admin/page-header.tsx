@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface PageHeaderProps {
   title: string;
@@ -6,26 +9,45 @@ interface PageHeaderProps {
   actions?: ReactNode;
 }
 
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
+
 export function PageHeader({ title, description, actions }: PageHeaderProps) {
   return (
-    <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
-      <div>
-        <div className="flex items-center gap-3 mb-2">
-          <span className="block w-8 h-px bg-[#e8a0b4]/60" />
-          <span className="font-body text-[10px] font-bold tracking-[0.35em] uppercase text-[#e8a0b4]/80">
-            Painel
-          </span>
+    <motion.header
+      className="mb-8"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: EASE_OUT }}
+    >
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div>
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-[#f2e8ec] leading-tight">
+            {title}
+          </h1>
+          {description && (
+            <p className="text-sm text-[#bda3ac] mt-2 font-body max-w-2xl">
+              {description}
+            </p>
+          )}
         </div>
-        <h1 className="font-heading text-2xl sm:text-3xl font-bold text-foreground">
-          {title}
-        </h1>
-        {description && (
-          <p className="text-sm text-muted-foreground mt-1.5 font-body max-w-2xl">
-            {description}
-          </p>
+        {actions && (
+          <motion.div
+            className="flex items-center gap-2 shrink-0"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.08, ease: EASE_OUT }}
+          >
+            {actions}
+          </motion.div>
         )}
       </div>
-      {actions && <div className="flex items-center gap-2">{actions}</div>}
-    </header>
+      <motion.div
+        className="mt-5 origin-left"
+        style={{ borderBottom: "1px solid var(--line)" }}
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: 1, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
+      />
+    </motion.header>
   );
 }

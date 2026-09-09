@@ -97,12 +97,12 @@ export default function KitsAdminPage() {
       header: "Preço",
       render: (row) => (
         <span className="inline-flex items-center gap-2">
-          <span className="font-semibold text-primary">
+          <span className="adm-price">
             R$ {row.price.toFixed(2).replace(".", ",")}
           </span>
           {row.priceOverride != null && (
             <span
-              className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#e8a0b4]/15 text-[#e8a0b4] text-[10px] font-bold font-body uppercase tracking-wide"
+              className="adm-tag adm-tag--rosa"
               title={`Promocional — o tipo custa R$ ${row.kitType.price.toFixed(2).replace(".", ",")}`}
             >
               Promo
@@ -116,11 +116,9 @@ export default function KitsAdminPage() {
       header: "Destaque",
       render: (row) =>
         row.featured ? (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-accent text-primary text-xs font-semibold font-body">
-            Sim
-          </span>
+          <span className="adm-tag adm-tag--rosa">Sim</span>
         ) : (
-          <span className="text-xs text-muted-foreground/60">—</span>
+          <span className="text-xs text-[#8f7681]">—</span>
         ),
     },
   ];
@@ -133,7 +131,7 @@ export default function KitsAdminPage() {
         actions={
           <Link
             href="/admin/kits/new"
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold font-body px-4 py-2.5 rounded-xl text-sm transition-colors shadow-md shadow-primary/10"
+            className="adm-btn adm-btn--primary"
           >
             <Plus className="w-4 h-4" />
             Novo kit
@@ -142,7 +140,7 @@ export default function KitsAdminPage() {
       />
 
       {error && (
-        <div className="mb-4 text-sm text-red-100 bg-red-500/10 border border-red-400/30 px-4 py-3 rounded-xl font-body">
+        <div className="adm-alert mb-4">
           {error}
         </div>
       )}
@@ -161,7 +159,7 @@ export default function KitsAdminPage() {
             <>
               <Link
                 href={`/admin/kits/${row.id}/edit`}
-                className="p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-lg transition-colors"
+                className="p-2 text-muted-foreground hover:text-[#e8a0b4] hover:bg-white/5 rounded-lg transition-colors"
                 aria-label={`Editar ${row.name}`}
               >
                 <Pencil className="w-4 h-4" />

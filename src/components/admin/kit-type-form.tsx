@@ -101,8 +101,8 @@ export function KitTypeForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <label className="block">
-        <span className="block text-xs font-bold text-white/65 mb-2 font-body uppercase tracking-[0.12em]">
-          Nome <span className="text-[#e8a0b4]">*</span>
+        <span className="adm-label">
+          Nome <span className="adm-label__req">*</span>
         </span>
         <input
           type="text"
@@ -110,17 +110,13 @@ export function KitTypeForm({
           className={inputClass}
           placeholder="Ex: Kit Básico"
         />
-        {errors.name && (
-          <span className="block text-xs text-red-300 mt-1 font-body">
-            {errors.name.message}
-          </span>
-        )}
+        {errors.name && <span className="adm-error">{errors.name.message}</span>}
       </label>
 
       <div className="grid grid-cols-2 gap-4">
         <label className="block">
-          <span className="block text-xs font-bold text-white/65 mb-2 font-body uppercase tracking-[0.12em]">
-            Preço (R$) <span className="text-[#e8a0b4]">*</span>
+          <span className="adm-label">
+            Preço (R$) <span className="adm-label__req">*</span>
           </span>
           <input
             type="number"
@@ -131,37 +127,29 @@ export function KitTypeForm({
             placeholder="150.00"
           />
           {errors.price && (
-            <span className="block text-xs text-red-300 mt-1 font-body">
-              {errors.price.message}
-            </span>
+            <span className="adm-error">{errors.price.message}</span>
           )}
-          <span className="block text-xs text-white/40 mt-1 font-body">
+          <span className="adm-hint">
             Todos os kits deste tipo herdam esse preço.
           </span>
         </label>
 
         <label className="block">
-          <span className="block text-xs font-bold text-white/65 mb-2 font-body uppercase tracking-[0.12em]">
-            Slug
-          </span>
+          <span className="adm-label">Slug</span>
           <input
             type="text"
             {...register("slug")}
             className={inputClass}
             placeholder="kit-basico (opcional)"
           />
-          <span className="block text-xs text-white/40 mt-1 font-body">
-            Gerado a partir do nome se vazio.
-          </span>
+          <span className="adm-hint">Gerado a partir do nome se vazio.</span>
         </label>
       </div>
 
       {/* Itens inclusos no tipo — selecionados do catálogo */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <span className="block text-xs font-bold text-white/65 font-body uppercase tracking-[0.12em]">
-            Itens inclusos
-          </span>
+          <span className="adm-label !mb-0">Itens inclusos</span>
           <button
             type="button"
             onClick={() => append({ itemId: "", quantity: "" })}
@@ -174,18 +162,21 @@ export function KitTypeForm({
         </div>
 
         {catalog.length === 0 && !catalogLoading ? (
-          <p className="text-xs text-white/40 font-body border border-dashed border-white/10 rounded-xl px-4 py-3">
+          <p
+            className="text-xs text-[#8f7681] font-body rounded-lg px-4 py-3"
+            style={{ border: "1px dashed var(--line-2)" }}
+          >
             Nenhum item no catálogo ainda. Cadastre primeiro em{" "}
-            <Link
-              href="/admin/items"
-              className="text-[#e8a0b4] hover:underline"
-            >
+            <Link href="/admin/items" className="adm-link hover:underline">
               Itens
             </Link>{" "}
             (ex.: Arco de balões, Pano de mesa).
           </p>
         ) : fields.length === 0 ? (
-          <p className="text-xs text-white/40 font-body border border-dashed border-white/10 rounded-xl px-4 py-3">
+          <p
+            className="text-xs text-[#8f7681] font-body rounded-lg px-4 py-3"
+            style={{ border: "1px dashed var(--line-2)" }}
+          >
             Selecione os itens do catálogo que vêm em todos os kits deste tipo
             (ex.: Arco de balões ×1, Pano de mesa ×2).
           </p>
@@ -234,24 +225,14 @@ export function KitTypeForm({
       </div>
 
       {errors.root?.message && (
-        <div className="text-sm text-red-100 bg-red-500/10 border border-red-400/30 px-4 py-3 rounded-xl font-body">
-          {errors.root.message}
-        </div>
+        <div className="adm-alert">{errors.root.message}</div>
       )}
 
       <div className="flex items-center justify-end gap-3 pt-2">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="px-5 py-2.5 rounded-full text-sm font-semibold font-body text-white/60 hover:bg-white/5 hover:text-white transition-colors"
-        >
+        <button type="button" onClick={onCancel} className="adm-btn adm-btn--ghost">
           Cancelar
         </button>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-5 py-2.5 rounded-full text-sm font-bold font-body bg-[#722e43] text-white hover:bg-[#9b3a5a] disabled:opacity-60 disabled:cursor-not-allowed transition-colors flex items-center gap-2 shadow-[0_8px_24px_-8px_rgba(232,160,180,0.4)]"
-        >
+        <button type="submit" disabled={isSubmitting} className="adm-btn adm-btn--primary">
           {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
           {kitType ? "Salvar" : "Criar"}
         </button>
@@ -260,9 +241,7 @@ export function KitTypeForm({
   );
 }
 
-const inputClass =
-  "w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-white/25 font-body focus:outline-none focus:ring-2 focus:ring-[#e8a0b4]/40 focus:border-[#e8a0b4]/40 hover:bg-white/[0.06] transition";
+const inputClass = "adm-input";
 
 /* Mesma aparência, mas largura fixa (sem w-full) pro campo de quantidade. */
-const quantityClass =
-  "w-20 px-3 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-white/25 font-body focus:outline-none focus:ring-2 focus:ring-[#e8a0b4]/40 focus:border-[#e8a0b4]/40 hover:bg-white/[0.06] transition";
+const quantityClass = "adm-input !w-20";

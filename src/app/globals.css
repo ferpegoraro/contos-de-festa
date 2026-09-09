@@ -143,6 +143,293 @@
   color: #ffffff;
 }
 
+/* ============================================================
+   ADMIN — calmo e sóbrio (impeccable.style).
+   Um acento só: rosa. Bordas sutis > sombras. Sem dourado.
+   Escopo: .adm na raiz do painel — nada aqui vaza pro site.
+   ============================================================ */
+.adm {
+  --bg: #1f1319;
+  --panel: #291a21;
+  --panel-2: #31212a;
+  --line: #3a2831;
+  --line-2: #4a3540;
+  --ink: #f2e8ec;
+  --muted: #bda3ac;
+  --faint: #8f7681;
+  --wine: #722e43;
+  --wine-hi: #8f3a55;
+  --rosa: #e8a0b4;
+  --danger: #e26b7d;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+  color: var(--ink);
+  background-color: var(--bg);
+}
+
+/* Fundo: vinho profundo e liso, com um grão finíssimo de papel.
+   Sem orbes borradas, sem vinheta, sem gradiente gritante. */
+.adm-shell {
+  background-color: var(--bg);
+}
+.adm-grain {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.5) 1px,
+    transparent 0
+  );
+  background-size: 26px 26px;
+  opacity: 0.02;
+}
+
+/* Superfícies sólidas — elevação por borda, não por sombra pesada */
+.adm-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+.adm-panel-2 {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+/* Campos — sólidos, foco rosa bem visível */
+.adm-input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--line-2);
+  background: #22141b;
+  color: var(--ink);
+  font-family: var(--font-body);
+  transition:
+    border-color 0.15s var(--ease),
+    box-shadow 0.15s var(--ease);
+}
+.adm-input::placeholder {
+  color: var(--faint);
+}
+.adm-input:hover {
+  border-color: #5a3d47;
+}
+.adm-input:focus {
+  outline: none;
+  border-color: var(--rosa);
+  box-shadow: 0 0 0 3px rgba(232, 160, 180, 0.2);
+}
+.adm select.adm-input option {
+  background-color: var(--panel);
+  color: var(--ink);
+}
+
+/* Rótulos — sentence case, discretos (nada de caixa-alta espaçada) */
+.adm-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.adm-label__req {
+  color: var(--rosa);
+}
+.adm-hint {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--faint);
+  margin-top: 0.35rem;
+}
+.adm-error {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--danger);
+  margin-top: 0.35rem;
+}
+.adm-alert {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #ffdbe1;
+  background: rgba(226, 107, 125, 0.1);
+  border: 1px solid rgba(226, 107, 125, 0.3);
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+}
+
+/* Números tabulares para preços/dados */
+.adm-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Botões — restrained, com feedback de clique */
+.adm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background 0.15s var(--ease),
+    border-color 0.15s var(--ease),
+    color 0.15s var(--ease),
+    transform 0.1s var(--ease);
+}
+.adm-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.adm-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.adm-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 160, 180, 0.28);
+}
+.adm-btn--primary {
+  background: var(--wine);
+  color: #fff;
+}
+.adm-btn--primary:hover:not(:disabled) {
+  background: var(--wine-hi);
+}
+.adm-btn--ghost {
+  background: transparent;
+  color: var(--muted);
+}
+.adm-btn--ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
+}
+.adm-btn--danger {
+  background: var(--danger);
+  color: #2a0f13;
+}
+.adm-btn--danger:hover:not(:disabled) {
+  background: #e8899a;
+}
+
+/* Selos discretos */
+.adm-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.12rem 0.55rem;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.adm-tag--rosa {
+  background: rgba(232, 160, 180, 0.13);
+  color: var(--rosa);
+  border: 1px solid rgba(232, 160, 180, 0.26);
+}
+.adm-tag--muted {
+  color: var(--faint);
+  border: 1px solid var(--line-2);
+}
+
+.adm-link {
+  color: var(--rosa);
+  font-weight: 600;
+  transition: color 0.15s var(--ease);
+}
+.adm-link:hover {
+  color: #fff;
+}
+
+/* Tabela — bordas limpas, hover sutil */
+.adm-table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+.adm-table thead th {
+  padding: 0.7rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--faint);
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--line);
+}
+.adm-table tbody td {
+  padding: 0.8rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.adm-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.adm-table tbody tr {
+  --mx: 50%;
+  --my: 50%;
+  --glow: 0;
+  background-image: radial-gradient(
+    170px circle at var(--mx) var(--my),
+    rgb(232 160 180 / calc(0.16 * var(--glow))),
+    transparent 60%
+  );
+  transition: background-color 0.12s var(--ease);
+}
+.adm-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Preço — legível de verdade no escuro (rosa claro, tabular) */
+.adm-price {
+  color: #ffc4d1;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Título com brilho animado — um facho claro passando devagar.
+   Decorativo e raro (só a saudação), então pode ter charme. */
+.adm-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    #f2e8ec 0%,
+    #f2e8ec 38%,
+    #ffffff 48%,
+    #ffd7e0 52%,
+    #f2e8ec 62%,
+    #f2e8ec 100%
+  );
+  background-size: 220% 100%;
+  background-position: 120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: adm-shimmer 6s ease-in-out infinite;
+}
+@keyframes adm-shimmer {
+  0% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -40% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adm-shimmer {
+    animation: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

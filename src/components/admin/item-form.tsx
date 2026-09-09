@@ -52,8 +52,8 @@ export function ItemForm({ item, onSuccess, onCancel }: ItemFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <label className="block">
-        <span className="block text-xs font-bold text-white/65 mb-2 font-body uppercase tracking-[0.12em]">
-          Nome <span className="text-[#e8a0b4]">*</span>
+        <span className="adm-label">
+          Nome <span className="adm-label__req">*</span>
         </span>
         <input
           type="text"
@@ -62,35 +62,21 @@ export function ItemForm({ item, onSuccess, onCancel }: ItemFormProps) {
           placeholder="Ex: Arco de balões"
           autoFocus
         />
-        {errors.name && (
-          <span className="block text-xs text-red-300 mt-1 font-body">
-            {errors.name.message}
-          </span>
-        )}
-        <span className="block text-xs text-white/40 mt-1 font-body">
+        {errors.name && <span className="adm-error">{errors.name.message}</span>}
+        <span className="adm-hint">
           Cadastre uma vez e use em quantos tipos de kit quiser.
         </span>
       </label>
 
       {errors.root?.message && (
-        <div className="text-sm text-red-100 bg-red-500/10 border border-red-400/30 px-4 py-3 rounded-xl font-body">
-          {errors.root.message}
-        </div>
+        <div className="adm-alert">{errors.root.message}</div>
       )}
 
       <div className="flex items-center justify-end gap-3 pt-2">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="px-5 py-2.5 rounded-full text-sm font-semibold font-body text-white/60 hover:bg-white/5 hover:text-white transition-colors"
-        >
+        <button type="button" onClick={onCancel} className="adm-btn adm-btn--ghost">
           Cancelar
         </button>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-5 py-2.5 rounded-full text-sm font-bold font-body bg-[#722e43] text-white hover:bg-[#9b3a5a] disabled:opacity-60 disabled:cursor-not-allowed transition-colors flex items-center gap-2 shadow-[0_8px_24px_-8px_rgba(232,160,180,0.4)]"
-        >
+        <button type="submit" disabled={isSubmitting} className="adm-btn adm-btn--primary">
           {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
           {item ? "Salvar" : "Criar"}
         </button>
@@ -99,5 +85,4 @@ export function ItemForm({ item, onSuccess, onCancel }: ItemFormProps) {
   );
 }
 
-const inputClass =
-  "w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-white/25 font-body focus:outline-none focus:ring-2 focus:ring-[#e8a0b4]/40 focus:border-[#e8a0b4]/40 hover:bg-white/[0.06] transition";
+const inputClass = "adm-input";

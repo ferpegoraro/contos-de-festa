@@ -74,7 +74,7 @@ export default function ItemsAdminPage() {
         actions={
           <button
             onClick={openCreate}
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold font-body px-4 py-2.5 rounded-xl text-sm transition-colors shadow-md shadow-primary/10"
+            className="adm-btn adm-btn--primary"
           >
             <Plus className="w-4 h-4" />
             Novo item
@@ -83,7 +83,7 @@ export default function ItemsAdminPage() {
       />
 
       {error && (
-        <div className="mb-4 text-sm text-red-100 bg-red-500/10 border border-red-400/30 px-4 py-3 rounded-xl font-body">
+        <div className="adm-alert mb-4">
           {error}
         </div>
       )}
@@ -102,7 +102,7 @@ export default function ItemsAdminPage() {
             <>
               <button
                 onClick={() => openEdit(row)}
-                className="p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-lg transition-colors"
+                className="p-2 text-muted-foreground hover:text-[#e8a0b4] hover:bg-white/5 rounded-lg transition-colors"
                 aria-label={`Editar ${row.name}`}
               >
                 <Pencil className="w-4 h-4" />

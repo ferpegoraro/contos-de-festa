@@ -139,22 +139,22 @@ export function ImageUpload({
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="w-full flex flex-col items-center justify-center gap-2 py-10 px-6 rounded-2xl border-2 border-dashed border-white/15 bg-white/[0.03] hover:bg-white/[0.06] hover:border-[#e8a0b4]/40 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full flex flex-col items-center justify-center gap-2 py-10 px-6 rounded-xl border-2 border-dashed border-[#4a3540] bg-[#22141b] hover:bg-[#281822] hover:border-[#e8a0b4]/45 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {uploading ? (
             <>
               <Loader2 className="w-6 h-6 text-[#e8a0b4] animate-spin" />
-              <p className="text-sm text-white font-semibold font-body">
+              <p className="text-sm text-[#f2e8ec] font-semibold font-body">
                 Enviando...
               </p>
             </>
           ) : (
             <>
               <ImagePlus className="w-6 h-6 text-[#e8a0b4]" />
-              <p className="text-sm text-white font-semibold font-body">
+              <p className="text-sm text-[#f2e8ec] font-semibold font-body">
                 Adicionar fotos
               </p>
-              <p className="text-xs text-white/45 font-body">
+              <p className="text-xs text-[#8f7681] font-body">
                 JPG, PNG, WebP ou AVIF — até 5MB cada
               </p>
             </>
@@ -170,14 +170,10 @@ export function ImageUpload({
         />
       </div>
 
-      {error && (
-        <div className="text-sm text-red-100 bg-red-500/10 border border-red-400/30 px-4 py-3 rounded-xl font-body">
-          {error}
-        </div>
-      )}
+      {error && <div className="adm-alert">{error}</div>}
 
       {images.length === 0 ? (
-        <p className="text-sm text-white/45 font-body py-4 text-center">
+        <p className="text-sm text-[#8f7681] font-body py-4 text-center">
           Nenhuma foto enviada ainda.
         </p>
       ) : (
@@ -187,9 +183,9 @@ export function ImageUpload({
             return (
               <div
                 key={image.id}
-                className="group relative bg-white/[0.04] backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden"
+                className="group relative adm-panel-2 overflow-hidden"
               >
-                <div className="relative aspect-[4/3] bg-white/[0.03]">
+                <div className="relative aspect-[4/3] bg-black/20">
                   <Image
                     src={image.url}
                     alt={image.alt ?? ""}

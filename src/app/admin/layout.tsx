@@ -39,9 +39,8 @@ export default function AdminLayout({
     return (
       <div
         data-theme="dark"
-        className="relative min-h-screen flex items-center justify-center bg-[#2d1a22] overflow-hidden"
+        className="adm adm-shell relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#722e43]/40 via-[#5a2435]/40 to-[#2d1a22]" />
         <Loader2 className="relative w-6 h-6 animate-spin text-[#e8a0b4]" />
       </div>
     );
@@ -50,34 +49,30 @@ export default function AdminLayout({
   return (
     <div
       data-theme="dark"
-      className="relative min-h-screen flex bg-[#2d1a22] overflow-hidden"
+      className="adm adm-shell relative min-h-screen flex overflow-hidden"
     >
-      {/* Ambient backdrop */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#722e43]/30 via-[#5a2435]/20 to-[#2d1a22]" />
-        <div className="absolute -top-40 -right-32 w-[500px] h-[500px] bg-[#e8a0b4]/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 left-1/3 w-[600px] h-[600px] bg-[#9b3a5a]/15 rounded-full blur-3xl" />
-        {/* grão fino tipo papel */}
-        <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:22px_22px]" />
-        {/* vinheta sutil */}
-        <div className="absolute inset-0 [background:radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.3)_100%)]" />
-      </div>
+      {/* Grão fino de papel — única textura, bem sutil */}
+      <div className="adm-grain fixed inset-0 pointer-events-none" />
 
-      <AdminSidebar
-        open={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="relative flex-1 flex flex-col min-w-0 z-10">
-        <header className="lg:hidden sticky top-0 z-30 bg-[#2d1a22]/80 backdrop-blur-md border-b border-white/10 px-4 py-3 flex items-center justify-between">
+        <header
+          className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 py-3"
+          style={{
+            background: "rgba(31,19,25,0.92)",
+            borderBottom: "1px solid var(--line)",
+            backdropFilter: "blur(8px)",
+          }}
+        >
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 hover:bg-white/5 rounded-lg"
+            className="p-2 rounded-lg hover:bg-white/5"
             aria-label="Abrir menu"
           >
-            <Menu className="w-5 h-5 text-white" />
+            <Menu className="w-5 h-5 text-[#f2e8ec]" />
           </button>
-          <p className="font-heading font-bold text-white">Admin</p>
+          <p className="font-heading font-bold text-[#f2e8ec]">Admin</p>
           <div className="w-9" />
         </header>
 

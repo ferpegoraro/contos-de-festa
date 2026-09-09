@@ -48,12 +48,19 @@ export function AdminSidebar({ open, onClose }: SidebarProps) {
 
       <aside
         className={cn(
-          "fixed lg:sticky top-0 left-0 z-50 lg:z-auto h-screen w-72 bg-sidebar text-sidebar-foreground flex flex-col border-r border-sidebar-border transition-transform lg:translate-x-0",
+          "fixed lg:sticky top-0 left-0 z-50 lg:z-auto h-screen w-72 flex flex-col transition-transform lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full",
         )}
+        style={{
+          background: "#1a1015",
+          borderRight: "1px solid var(--line)",
+        }}
       >
         {/* Logo + close */}
-        <div className="flex items-center justify-between gap-3 p-6 border-b border-sidebar-border">
+        <div
+          className="flex items-center justify-between gap-3 p-6"
+          style={{ borderBottom: "1px solid var(--line)" }}
+        >
           <Link
             href="/admin"
             onClick={onClose}
@@ -62,7 +69,7 @@ export function AdminSidebar({ open, onClose }: SidebarProps) {
             <div className="relative w-11 h-11 shrink-0">
               {/* arco tracejado girando ao redor da logo */}
               <motion.div
-                className="absolute inset-0 rounded-full border border-dashed border-[#e8a0b4]/35 will-change-transform"
+                className="absolute inset-0 rounded-full border border-dashed border-[#e8a0b4]/30 will-change-transform"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
               />
@@ -75,15 +82,15 @@ export function AdminSidebar({ open, onClose }: SidebarProps) {
               />
             </div>
             <div>
-              <p className="font-heading text-base font-bold leading-tight">
+              <p className="font-heading text-base font-bold leading-tight text-[#f2e8ec]">
                 {siteConfig.name}
               </p>
-              <p className="text-xs text-rosa font-body">Painel admin</p>
+              <p className="text-xs text-[#8f7681] font-body mt-0.5">Painel</p>
             </div>
           </Link>
           <button
             onClick={onClose}
-            className="lg:hidden p-2 hover:bg-sidebar-accent rounded-lg"
+            className="lg:hidden p-2 rounded-lg text-[#bda3ac] hover:bg-white/5"
             aria-label="Fechar menu"
           >
             <X className="w-5 h-5" />
@@ -91,7 +98,7 @@ export function AdminSidebar({ open, onClose }: SidebarProps) {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-0.5">
           {navItems.map(({ href, label, icon: Icon, exact }) => {
             const isActive = exact
               ? pathname === href
@@ -102,13 +109,23 @@ export function AdminSidebar({ open, onClose }: SidebarProps) {
                 href={href}
                 onClick={onClose}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium font-body transition-colors",
+                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium font-body transition-colors",
                   isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-white",
+                    ? "text-white"
+                    : "text-[#bda3ac] hover:bg-white/[0.04] hover:text-[#f2e8ec]",
                 )}
+                style={
+                  isActive
+                    ? {
+                        background: "rgba(232,160,180,0.12)",
+                        boxShadow: "inset 2px 0 0 var(--rosa)",
+                      }
+                    : undefined
+                }
               >
-                <Icon className="w-4 h-4" />
+                <Icon
+                  className={cn("w-4 h-4", isActive && "text-[#e8a0b4]")}
+                />
                 {label}
               </Link>
             );
@@ -117,7 +134,7 @@ export function AdminSidebar({ open, onClose }: SidebarProps) {
           <Link
             href="/"
             target="_blank"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium font-body text-sidebar-foreground/60 hover:bg-sidebar-accent hover:text-white transition-colors mt-4"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium font-body text-[#8f7681] hover:bg-white/[0.04] hover:text-[#f2e8ec] transition-colors mt-3"
           >
             <ExternalLink className="w-4 h-4" />
             Ver site público
@@ -125,20 +142,20 @@ export function AdminSidebar({ open, onClose }: SidebarProps) {
         </nav>
 
         {/* Footer / user */}
-        <div className="p-4 border-t border-sidebar-border">
+        <div className="p-4" style={{ borderTop: "1px solid var(--line)" }}>
           {user && (
             <div className="px-3 pb-3">
-              <p className="text-sm font-semibold text-white truncate">
+              <p className="text-sm font-semibold text-[#f2e8ec] truncate">
                 {user.name}
               </p>
-              <p className="text-xs text-sidebar-foreground/50 font-body truncate">
+              <p className="text-xs text-[#8f7681] font-body truncate">
                 {user.email}
               </p>
             </div>
           )}
           <button
             onClick={logout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium font-body text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-white transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium font-body text-[#bda3ac] hover:bg-white/[0.04] hover:text-[#f2e8ec] transition-colors"
           >
             <LogOut className="w-4 h-4" />
             Sair

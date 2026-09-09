@@ -1,7 +1,19 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
+import { motion, type Variants } from "framer-motion";
 import { Search } from "lucide-react";
+
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
+
+const bodyVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.035, delayChildren: 0.05 } },
+};
+const rowVariants: Variants = {
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.28, ease: EASE_OUT } },
+};
 
 export interface Column<T> {
   key: string;
@@ -48,75 +60,91 @@ export function DataTable<T>({
     <div className="space-y-4">
       {searchKeys && searchKeys.length > 0 && (
         <div className="relative max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8f7681] pointer-events-none" />
           <input
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-card text-foreground font-body focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
+            className="adm-input !pl-10"
           />
         </div>
       )}
 
-      <div className="bg-card rounded-2xl border border-border overflow-hidden">
+      <motion.div
+        className="adm-panel overflow-hidden"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: EASE_OUT }}
+      >
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className="adm-table">
             <thead>
-              <tr className="bg-muted border-b border-border">
+              <tr>
                 {columns.map((column) => (
-                  <th
-                    key={column.key}
-                    className={`px-5 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground font-body ${column.className ?? ""}`}
-                  >
+                  <th key={column.key} className={column.className ?? ""}>
                     {column.header}
                   </th>
                 ))}
-                {actions && (
-                  <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground font-body text-right">
-                    Ações
-                  </th>
-                )}
+                {actions && <th className="text-right">Ações</th>}
               </tr>
             </thead>
-            <tbody>
-              {filtered.length === 0 ? (
+            {filtered.length === 0 ? (
+              <tbody>
                 <tr>
                   <td
                     colSpan={columns.length + (actions ? 1 : 0)}
-                    className="px-5 py-10 text-center text-sm text-muted-foreground font-body"
+                    className="!py-10 text-center !text-[#8f7681]"
                   >
                     {emptyMessage}
                   </td>
                 </tr>
-              ) : (
-                filtered.map((row) => (
-                  <tr
+              </tbody>
+            ) : (
+              <motion.tbody
+                variants={bodyVariants}
+                initial="hidden"
+                animate="show"
+              >
+                {filtered.map((row) => (
+                  <motion.tr
                     key={rowKey(row)}
-                    className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors"
+                    variants={rowVariants}
+                    onMouseMove={(e) => {
+                      const r = e.currentTarget.getBoundingClientRect();
+                      e.currentTarget.style.setProperty(
+                        "--mx",
+                        `${e.clientX - r.left}px`,
+                      );
+                      e.currentTarget.style.setProperty(
+                        "--my",
+                        `${e.clientY - r.top}px`,
+                      );
+                      e.currentTarget.style.setProperty("--glow", "1");
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.setProperty("--glow", "0");
+                    }}
                   >
                     {columns.map((column) => (
-                      <td
-                        key={column.key}
-                        className={`px-5 py-3.5 text-sm text-foreground font-body ${column.className ?? ""}`}
-                      >
+                      <td key={column.key} className={column.className ?? ""}>
                         {column.render(row)}
                       </td>
                     ))}
                     {actions && (
-                      <td className="px-5 py-3.5 text-right">
+                      <td className="text-right">
                         <div className="inline-flex items-center gap-1 justify-end">
                           {actions(row)}
                         </div>
                       </td>
                     )}
-                  </tr>
-                ))
-              )}
-            </tbody>
+                  </motion.tr>
+                ))}
+              </motion.tbody>
+            )}
           </table>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

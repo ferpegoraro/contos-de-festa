@@ -53,25 +53,28 @@ export function Modal({
         role="dialog"
         aria-modal="true"
         className={cn(
-          "relative w-full bg-[#3d2832] backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] flex flex-col max-h-[90vh] overflow-hidden",
+          "adm relative w-full rounded-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] flex flex-col max-h-[90vh] overflow-hidden",
           sizeClasses[size],
         )}
+        style={{ background: "var(--panel)", border: "1px solid var(--line)" }}
       >
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#e8a0b4]/40 to-transparent" />
-        <div className="flex items-start justify-between gap-4 p-6 border-b border-white/10">
+        <div
+          className="flex items-start justify-between gap-4 p-6"
+          style={{ borderBottom: "1px solid var(--line)" }}
+        >
           <div>
-            <h2 className="font-heading text-xl font-bold text-white">
+            <h2 className="font-heading text-xl font-bold text-[#f2e8ec]">
               {title}
             </h2>
             {description && (
-              <p className="text-sm text-white/55 mt-1 font-body">
+              <p className="text-sm text-[#bda3ac] mt-1 font-body">
                 {description}
               </p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="p-2 -m-2 hover:bg-white/5 rounded-lg text-white/50 hover:text-white transition-colors"
+            className="p-2 -m-2 hover:bg-white/5 rounded-lg text-[#8f7681] hover:text-[#f2e8ec] transition-colors"
             aria-label="Fechar"
           >
             <X className="w-5 h-5" />

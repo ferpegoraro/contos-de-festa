@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "sonner";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { PageHeader } from "@/components/admin/page-header";
 import { KitForm } from "@/components/admin/kit-form";
@@ -22,7 +23,7 @@ export default function NewKitPage() {
     <div className="max-w-3xl mx-auto">
       <Link
         href="/admin/kits"
-        className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white font-body mb-4 transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm text-[#8f7681] hover:text-[#f2e8ec] font-body mb-4 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         Voltar
@@ -30,51 +31,44 @@ export default function NewKitPage() {
 
       <PageHeader
         title="Novo kit"
-        description="Cadastre os dados do kit. As fotos serão adicionadas no próximo passo."
+        description="Preencha os dados e escolha as fotos — tudo salva de uma vez."
       />
 
-      {loadError && (
-        <div className="mb-4 text-sm text-red-100 bg-red-500/10 border border-red-400/30 px-4 py-3 rounded-xl font-body">
-          {loadError}
-        </div>
-      )}
+      {loadError && <div className="adm-alert mb-4">{loadError}</div>}
 
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
           <Loader2 className="w-6 h-6 animate-spin text-[#e8a0b4]" />
         </div>
       ) : missingDeps ? (
-        <div className="bg-white/[0.04] backdrop-blur-md rounded-2xl border border-white/10 p-6 space-y-3">
-          <p className="text-sm text-white font-body">
+        <div className="adm-panel p-6 space-y-3">
+          <p className="text-sm text-[#f2e8ec] font-body">
             Pra criar um kit, você precisa ter ao menos uma categoria e um tipo
             de kit cadastrados.
           </p>
           <div className="flex gap-3">
             {categories.length === 0 && (
-              <Link
-                href="/admin/categories"
-                className="text-sm font-semibold text-[#e8a0b4] hover:text-white"
-              >
+              <Link href="/admin/categories" className="text-sm adm-link">
                 Cadastrar categoria →
               </Link>
             )}
             {kitTypes.length === 0 && (
-              <Link
-                href="/admin/kit-types"
-                className="text-sm font-semibold text-[#e8a0b4] hover:text-white"
-              >
+              <Link href="/admin/kit-types" className="text-sm adm-link">
                 Cadastrar tipo de kit →
               </Link>
             )}
           </div>
         </div>
       ) : (
-        <div className="bg-white/[0.04] backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8">
+        <div className="adm-panel p-6 sm:p-8">
           <KitForm
             categories={categories}
             kitTypes={kitTypes}
             onCancel={() => router.push("/admin/kits")}
-            onSuccess={(kit) => router.push(`/admin/kits/${kit.id}/edit`)}
+            onSuccess={(kit) => {
+              toast.success(`Kit "${kit.name}" criado com as fotos.`);
+              router.push("/admin/kits");
+            }}
           />
         </div>
       )}
