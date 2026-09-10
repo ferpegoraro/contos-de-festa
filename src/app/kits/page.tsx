@@ -30,15 +30,19 @@ export default function KitsPage() {
   const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
-    return kits.filter((kit) => {
-      const haystack =
-        `${kit.name} ${kit.shortDescription ?? ""} ${kit.description}`.toLowerCase();
-      const matchesSearch = !search || haystack.includes(search.toLowerCase());
-      const matchesCategory =
-        !activeCategory || kit.category.id === activeCategory;
-      const matchesType = !activeType || kit.kitTypeId === activeType;
-      return matchesSearch && matchesCategory && matchesType;
-    });
+    return kits
+      .filter((kit) => {
+        const haystack =
+          `${kit.name} ${kit.shortDescription ?? ""} ${kit.description}`.toLowerCase();
+        const matchesSearch =
+          !search || haystack.includes(search.toLowerCase());
+        const matchesCategory =
+          !activeCategory || kit.category.id === activeCategory;
+        const matchesType = !activeType || kit.kitTypeId === activeType;
+        return matchesSearch && matchesCategory && matchesType;
+      })
+      // do mais barato pro mais caro (empate: nome)
+      .sort((a, b) => a.price - b.price || a.name.localeCompare(b.name));
   }, [kits, search, activeCategory, activeType]);
 
   /**
@@ -56,7 +60,10 @@ export default function KitsPage() {
       list.push(kit);
       map.set(kit.kitTypeId, list);
     }
-    return Array.from(map.values());
+    // tipos do mais barato pro mais caro (pelo preço-base do grupo)
+    return Array.from(map.values()).sort(
+      (a, b) => a[0].kitType.price - b[0].kitType.price,
+    );
   }, [filtered, isPreview]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);

@@ -2,7 +2,7 @@ export function KitSkeleton() {
   return (
     <div className="bg-white/5 rounded-2xl overflow-hidden border border-white/10 animate-pulse">
       {/* Image placeholder */}
-      <div className="aspect-square bg-white/5" />
+      <div className="aspect-[4/5] bg-white/5" />
       {/* Content */}
       <div className="p-5 space-y-3">
         <div className="h-5 bg-white/5 rounded-lg w-3/4" />
