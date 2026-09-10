@@ -29,8 +29,8 @@ export function ImageCarousel({ images, kitName }: ImageCarouselProps) {
 
   return (
     <div className="relative">
-      {/* Main image */}
-      <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#2d1a22] border border-white/10">
+      {/* Main image — proporção natural (foto completa, sem cortar) */}
+      <div className="relative rounded-2xl overflow-hidden bg-[#2d1a22] border border-white/10">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -38,14 +38,13 @@ export function ImageCarousel({ images, kitName }: ImageCarouselProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0"
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={images[current].url}
               alt={images[current].alt || kitName}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain"
+              className="w-full h-auto block"
+              loading="lazy"
             />
           </motion.div>
         </AnimatePresence>
