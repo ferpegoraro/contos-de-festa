@@ -16,7 +16,7 @@ export function ImageCarousel({ images, kitName }: ImageCarouselProps) {
 
   if (images.length === 0) {
     return (
-      <div className="relative aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#722e43]/30 to-[#9b3a5a]/20 border border-white/10 flex flex-col items-center justify-center gap-4 text-white/20">
+      <div className="relative aspect-[4/5] rounded-2xl bg-gradient-to-br from-[#722e43]/30 to-[#9b3a5a]/20 border border-white/10 flex flex-col items-center justify-center gap-4 text-white/20">
         <ImageIcon className="w-16 h-16" />
         <span className="text-sm font-body">Fotos do kit</span>
       </div>
@@ -30,7 +30,7 @@ export function ImageCarousel({ images, kitName }: ImageCarouselProps) {
   return (
     <div className="relative">
       {/* Main image */}
-      <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#2d1a22] border border-white/10">
+      <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#2d1a22] border border-white/10">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -44,7 +44,8 @@ export function ImageCarousel({ images, kitName }: ImageCarouselProps) {
               src={images[current].url}
               alt={images[current].alt || kitName}
               fill
-              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-contain"
             />
           </motion.div>
         </AnimatePresence>
