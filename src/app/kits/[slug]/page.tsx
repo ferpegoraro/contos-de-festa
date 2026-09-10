@@ -23,7 +23,7 @@ export default function KitDetailPage({
 }) {
   const { slug } = use(params);
   const { kit, isLoading } = useKitBySlug(slug);
-  const { kits: allKits } = useKits();
+  const { kits: allKits } = useKits({ pageSize: 1000 });
   const relatedKits = useMemo(() => {
     if (!kit) return [];
     return allKits

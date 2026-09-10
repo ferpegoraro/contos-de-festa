@@ -14,7 +14,7 @@ const querySchema = z.object({
       value === undefined ? undefined : value === "true",
     ),
   page: z.coerce.number().int().positive().optional(),
-  pageSize: z.coerce.number().int().positive().max(100).optional(),
+  pageSize: z.coerce.number().int().positive().max(1000).optional(),
 });
 
 export async function listKits(

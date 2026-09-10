@@ -18,7 +18,7 @@ export default function EditKitPage({
 }) {
   const { id } = use(params);
   const router = useRouter();
-  const { kits, isLoading: kitsLoading, reload } = useKits();
+  const { kits, isLoading: kitsLoading, reload } = useKits({ pageSize: 1000 });
   const { categories, isLoading: catLoading } = useCategories();
   const { kitTypes, isLoading: typesLoading } = useKitTypes();
 

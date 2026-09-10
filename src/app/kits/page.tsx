@@ -20,7 +20,7 @@ const ITEMS_PER_PAGE = 12;
 const PREVIEW_PER_GROUP = 4;
 
 export default function KitsPage() {
-  const { kits, isLoading, error: kitsError } = useKits();
+  const { kits, isLoading, error: kitsError } = useKits({ pageSize: 1000 });
   const { categories } = useCategories();
   const { kitTypes } = useKitTypes();
 

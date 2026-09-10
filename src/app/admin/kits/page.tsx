@@ -18,7 +18,7 @@ import {
 import { ApiError } from "@/lib/api/client";
 
 export default function KitsAdminPage() {
-  const { kits, isLoading, error, reload } = useKits({ pageSize: 100 });
+  const { kits, isLoading, error, reload } = useKits({ pageSize: 1000 });
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const { confirm, confirmProps } = useConfirm();
 
