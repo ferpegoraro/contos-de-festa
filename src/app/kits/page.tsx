@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Package, Search, X } from "lucide-react";
 import Link from "next/link";
@@ -50,7 +50,7 @@ export default function KitsPage() {
    * seção curta (até PREVIEW_PER_GROUP kits) com botão "Ver todos".
    * A ordem alfabética (tipo → kit) já vem do banco.
    */
-  const isPreview = !search && !activeType;
+  const isPreview = !search && !activeType && !activeCategory;
 
   const groups = useMemo(() => {
     if (!isPreview) return [];
@@ -249,30 +249,9 @@ export default function KitsPage() {
                 )}
 
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-                  {paginatedKits.map((kit, index) => {
-                    const newGroup =
-                      !activeType &&
-                      (index === 0 ||
-                        paginatedKits[index - 1].kitType.id !== kit.kitType.id);
-                    return (
-                      <Fragment key={kit.id}>
-                        {newGroup && (
-                          <div
-                            className={`col-span-full flex items-center gap-3 ${index === 0 ? "" : "mt-4"}`}
-                          >
-                            <span className="font-body text-[11px] font-bold tracking-[0.3em] uppercase text-[#e8a0b4]">
-                              {kit.kitType.name}
-                            </span>
-                            <span className="font-heading italic text-sm text-white/35">
-                              R$ {kit.kitType.price.toFixed(2).replace(".", ",")}
-                            </span>
-                            <span className="flex-1 h-px bg-gradient-to-r from-white/15 to-transparent" />
-                          </div>
-                        )}
-                        <KitCard kit={kit} />
-                      </Fragment>
-                    );
-                  })}
+                  {paginatedKits.map((kit) => (
+                    <KitCard key={kit.id} kit={kit} />
+                  ))}
                 </div>
 
                 {/* Pagination */}

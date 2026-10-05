@@ -16,7 +16,7 @@ export function ImageCarousel({ images, kitName }: ImageCarouselProps) {
 
   if (images.length === 0) {
     return (
-      <div className="relative aspect-[4/5] rounded-2xl bg-gradient-to-br from-[#722e43]/30 to-[#9b3a5a]/20 border border-white/10 flex flex-col items-center justify-center gap-4 text-white/20">
+      <div className="relative aspect-[4/5] bg-gradient-to-br from-[#722e43]/30 to-[#9b3a5a]/20 border border-white/10 flex flex-col items-center justify-center gap-4 text-white/20">
         <ImageIcon className="w-16 h-16" />
         <span className="text-sm font-body">Fotos do kit</span>
       </div>
@@ -30,7 +30,7 @@ export function ImageCarousel({ images, kitName }: ImageCarouselProps) {
   return (
     <div className="relative">
       {/* Main image — proporção natural (foto completa, sem cortar) */}
-      <div className="relative rounded-2xl overflow-hidden bg-[#2d1a22] border border-white/10">
+      <div className="relative overflow-hidden bg-[#2d1a22] border border-white/10">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -82,7 +82,7 @@ export function ImageCarousel({ images, kitName }: ImageCarouselProps) {
             <button
               key={img.id}
               onClick={() => setCurrent(i)}
-              className={`relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
+              className={`relative w-16 h-16 flex-shrink-0 overflow-hidden border-2 transition-all ${
                 i === current
                   ? "border-[#e8a0b4]"
                   : "border-white/10 opacity-50 hover:opacity-80"

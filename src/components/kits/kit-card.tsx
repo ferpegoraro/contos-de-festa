@@ -17,7 +17,7 @@ export function KitCard({ kit }: KitCardProps) {
   return (
     <Link
       href={`/kits/${kit.slug}`}
-      className="group block bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#e8a0b4]/30 transition-all duration-500 hover:bg-white/10"
+      className="group block bg-white/5 backdrop-blur-sm overflow-hidden border border-white/10 hover:border-[#e8a0b4]/30 transition-all duration-500 hover:bg-white/10"
     >
       {/* Image */}
       <div className="relative aspect-[4/5] bg-gradient-to-br from-[#722e43]/30 to-[#9b3a5a]/20 overflow-hidden">
