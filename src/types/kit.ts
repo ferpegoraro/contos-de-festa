@@ -44,6 +44,8 @@ export interface Kit {
   name: string;
   description: string;
   shortDescription: string | null;
+  /** Itens inclusos (texto livre, um por linha ou vírgula). */
+  includedItems: string | null;
   /** Preço efetivo calculado pela API: priceOverride ?? kitType.price. */
   price: number;
   /** Preço promocional — null herda o preço do tipo. */

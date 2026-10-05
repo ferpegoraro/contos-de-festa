@@ -9,6 +9,7 @@ const bodySchema = z.object({
   slug: z.string().min(2).optional(),
   description: z.string().optional().default(""),
   shortDescription: z.string().nullish(),
+  includedItems: z.string().nullish(),
   /** Preço promocional — ausente/null herda o preço do tipo. */
   priceOverride: z.number().nonnegative().nullish(),
   featured: z.boolean().optional(),

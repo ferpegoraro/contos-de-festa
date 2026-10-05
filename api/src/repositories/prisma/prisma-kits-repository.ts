@@ -80,6 +80,7 @@ export class PrismaKitsRepository implements KitsRepository {
         slug: data.slug,
         description: data.description,
         shortDescription: data.shortDescription ?? null,
+        includedItems: data.includedItems ?? null,
         priceOverride: data.priceOverride ?? null,
         featured: data.featured ?? false,
         kitTypeId: data.kitTypeId,
@@ -98,6 +99,7 @@ export class PrismaKitsRepository implements KitsRepository {
         slug: data.slug,
         description: data.description,
         shortDescription: data.shortDescription,
+        includedItems: data.includedItems,
         // null limpa a promoção; undefined não mexe
         priceOverride: data.priceOverride,
         featured: data.featured,

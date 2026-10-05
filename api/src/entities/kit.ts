@@ -10,6 +10,8 @@ export interface KitProps {
   slug: string;
   description: string;
   shortDescription: string | null;
+  /** Itens inclusos no kit (texto livre, um por linha ou vírgula). */
+  includedItems: string | null;
   /** Preço promocional do kit — null herda o preço do tipo. */
   priceOverride: number | null;
   featured: boolean;
@@ -34,6 +36,9 @@ export class Kit extends Entity<KitProps> {
   }
   get shortDescription(): string | null {
     return this.props.shortDescription;
+  }
+  get includedItems(): string | null {
+    return this.props.includedItems;
   }
   get priceOverride(): number | null {
     return this.props.priceOverride;
@@ -76,6 +81,7 @@ export class Kit extends Entity<KitProps> {
     props: Optional<
       KitProps,
       | "shortDescription"
+      | "includedItems"
       | "priceOverride"
       | "featured"
       | "createdAt"
@@ -89,6 +95,7 @@ export class Kit extends Entity<KitProps> {
       {
         ...props,
         shortDescription: props.shortDescription ?? null,
+        includedItems: props.includedItems ?? null,
         priceOverride: props.priceOverride ?? null,
         featured: props.featured ?? false,
         createdAt: props.createdAt ?? now,

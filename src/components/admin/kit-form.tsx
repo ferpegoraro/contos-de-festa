@@ -44,6 +44,9 @@ export function KitForm({
   const [kitTypeId, setKitTypeId] = useState(kit?.kitTypeId ?? "");
   const [categoryId, setCategoryId] = useState(kit?.categoryId ?? "");
   const [featured, setFeatured] = useState(kit?.featured ?? false);
+  const [includedItems, setIncludedItems] = useState(
+    kit?.includedItems ?? "",
+  );
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   // Fotos escolhidas na hora de criar (sobem junto no "Criar kit").
@@ -88,6 +91,7 @@ export function KitForm({
       slug: slug.trim() || undefined,
       description,
       shortDescription: shortDescription.trim() || null,
+      includedItems: includedItems.trim() || null,
       priceOverride: parsedOverride,
       kitTypeId,
       categoryId,
@@ -258,25 +262,19 @@ export function KitForm({
         />
       </Field>
 
-      {/* Itens inclusos agora pertencem ao Tipo de Kit */}
-      {selectedType && selectedType.items.length > 0 && (
-        <div className="adm-panel-2 px-4 py-3">
-          <p className="adm-label !mb-2">
-            Itens inclusos (do tipo {selectedType.name})
-          </p>
-          <ul className="text-sm text-[#bda3ac] font-body space-y-1">
-            {selectedType.items.map((item, index) => (
-              <li key={`${item.name}-${index}`}>
-                • {item.name}
-                {item.quantity != null && (
-                  <span className="text-[#8f7681]"> ×{item.quantity}</span>
-                )}
-              </li>
-            ))}
-          </ul>
-          <p className="adm-hint">Para editar os itens, vá em Tipos de Kit.</p>
-        </div>
-      )}
+      {/* Itens inclusos — editável por kit (texto livre, vira lista com ✓) */}
+      <Field
+        label="Itens inclusos"
+        hint="Um item por linha (ex.: Arco de balões, Painel, 2 mesas). Aparece em lista com ✓ na página do kit."
+      >
+        <textarea
+          rows={4}
+          value={includedItems}
+          onChange={(e) => setIncludedItems(e.target.value)}
+          className={`${inputClass} resize-none`}
+          placeholder={"Arco de balões\nPainel temático\n2 mesas espelhadas"}
+        />
+      </Field>
 
       {/* Fotos — escolhidas agora, sobem junto ao criar o kit */}
       {!kit && (

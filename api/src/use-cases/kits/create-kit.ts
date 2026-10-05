@@ -11,6 +11,7 @@ interface CreateKitUseCaseRequest {
   slug?: string;
   description: string;
   shortDescription?: string | null;
+  includedItems?: string | null;
   /** Preço promocional — null/ausente herda o preço do tipo. */
   priceOverride?: number | null;
   featured?: boolean;
@@ -34,6 +35,7 @@ export class CreateKitUseCase {
     slug,
     description,
     shortDescription,
+    includedItems,
     priceOverride,
     featured,
     kitTypeId,
@@ -59,6 +61,7 @@ export class CreateKitUseCase {
       slug: finalSlug,
       description,
       shortDescription: shortDescription ?? null,
+      includedItems: includedItems ?? null,
       priceOverride: priceOverride ?? null,
       featured: featured ?? false,
       kitTypeId,

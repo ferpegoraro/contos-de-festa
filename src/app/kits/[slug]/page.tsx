@@ -133,31 +133,33 @@ export default function KitDetailPage({
                   </p>
                 )}
 
-                {/* Items included — herdados do tipo do kit */}
-                {kit.kitType.items.length > 0 && (
-                  <div className="mt-8">
-                    <h3 className="flex items-center gap-2 font-heading font-semibold text-white mb-4">
-                      <ListChecks className="w-5 h-5 text-[#e8a0b4]" />
-                      Itens inclusos
-                    </h3>
-                    <ul className="space-y-2">
-                      {kit.kitType.items.map((item, index) => (
-                        <li
-                          key={`${item.name}-${index}`}
-                          className="flex items-center gap-3 text-sm text-white/60 font-body"
-                        >
-                          <Check className="w-4 h-4 text-[#e8a0b4] flex-shrink-0" />
-                          <span>
-                            {item.name}
-                            {item.quantity != null && (
-                              <span className="text-white/35"> ×{item.quantity}</span>
-                            )}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                {/* Itens inclusos — texto livre do kit, um por linha/vírgula */}
+                {(() => {
+                  const included = (kit.includedItems ?? "")
+                    .split(/\r?\n|,/)
+                    .map((s) => s.trim())
+                    .filter(Boolean);
+                  if (included.length === 0) return null;
+                  return (
+                    <div className="mt-8">
+                      <h3 className="flex items-center gap-2 font-heading font-semibold text-white mb-4">
+                        <ListChecks className="w-5 h-5 text-[#e8a0b4]" />
+                        Itens inclusos
+                      </h3>
+                      <ul className="space-y-2">
+                        {included.map((item, index) => (
+                          <li
+                            key={`${item}-${index}`}
+                            className="flex items-center gap-3 text-sm text-white/60 font-body"
+                          >
+                            <Check className="w-4 h-4 text-[#e8a0b4] flex-shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })()}
 
                 {/* Actions */}
                 <div className="mt-8 flex flex-col sm:flex-row gap-3">

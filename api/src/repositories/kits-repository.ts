@@ -5,6 +5,7 @@ export interface CreateKitInput {
   slug: string;
   description: string;
   shortDescription?: string | null;
+  includedItems?: string | null;
   /** Preço promocional — null/ausente herda o preço do tipo. */
   priceOverride?: number | null;
   featured?: boolean;
@@ -17,6 +18,7 @@ export interface UpdateKitInput {
   slug?: string;
   description?: string;
   shortDescription?: string | null;
+  includedItems?: string | null;
   /** null limpa a promoção (volta a herdar); undefined não mexe. */
   priceOverride?: number | null;
   featured?: boolean;

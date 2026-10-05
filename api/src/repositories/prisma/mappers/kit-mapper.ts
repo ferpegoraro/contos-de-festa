@@ -21,6 +21,7 @@ export const KitMapper = {
         slug: record.slug,
         description: record.description,
         shortDescription: record.shortDescription,
+        includedItems: record.includedItems,
         priceOverride:
           record.priceOverride === null ? null : Number(record.priceOverride),
         featured: record.featured,

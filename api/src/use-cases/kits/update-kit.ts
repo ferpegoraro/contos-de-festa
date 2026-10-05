@@ -12,6 +12,7 @@ interface UpdateKitUseCaseRequest {
   slug?: string;
   description?: string;
   shortDescription?: string | null;
+  includedItems?: string | null;
   /** null limpa a promoção (volta a herdar); undefined não mexe. */
   priceOverride?: number | null;
   featured?: boolean;
@@ -36,6 +37,7 @@ export class UpdateKitUseCase {
     slug,
     description,
     shortDescription,
+    includedItems,
     priceOverride,
     featured,
     kitTypeId,
@@ -75,6 +77,7 @@ export class UpdateKitUseCase {
       slug: nextSlug,
       description,
       shortDescription,
+      includedItems,
       priceOverride,
       featured,
       kitTypeId,

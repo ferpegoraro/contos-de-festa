@@ -18,6 +18,7 @@ interface KitRecord {
   slug: string;
   description: string;
   shortDescription: string | null;
+  includedItems: string | null;
   priceOverride: number | null;
   featured: boolean;
   kitTypeId: string;
@@ -52,6 +53,7 @@ export class InMemoryKitsRepository implements KitsRepository {
         slug: record.slug,
         description: record.description,
         shortDescription: record.shortDescription,
+        includedItems: record.includedItems,
         priceOverride: record.priceOverride,
         featured: record.featured,
         kitTypeId: record.kitTypeId,
@@ -139,6 +141,7 @@ export class InMemoryKitsRepository implements KitsRepository {
       slug: data.slug,
       description: data.description,
       shortDescription: data.shortDescription ?? null,
+      includedItems: data.includedItems ?? null,
       priceOverride: data.priceOverride ?? null,
       featured: data.featured ?? false,
       kitTypeId: data.kitTypeId,
@@ -171,6 +174,10 @@ export class InMemoryKitsRepository implements KitsRepository {
         data.shortDescription === undefined
           ? current.shortDescription
           : data.shortDescription,
+      includedItems:
+        data.includedItems === undefined
+          ? current.includedItems
+          : data.includedItems,
       // null limpa a promoção; undefined não mexe
       priceOverride:
         data.priceOverride === undefined

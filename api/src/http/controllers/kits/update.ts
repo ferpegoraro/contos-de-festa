@@ -10,6 +10,7 @@ const bodySchema = z.object({
   slug: z.string().min(2).optional(),
   description: z.string().optional(),
   shortDescription: z.string().nullish(),
+  includedItems: z.string().nullish(),
   /** null limpa a promoção (volta a herdar do tipo); ausente não mexe. */
   priceOverride: z.number().nonnegative().nullish(),
   featured: z.boolean().optional(),

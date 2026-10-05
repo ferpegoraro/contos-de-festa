@@ -84,6 +84,7 @@ model Kit {
   slug             String   @unique
   description      String
   shortDescription String?  @map("short_description")
+  includedItems    String?  @map("included_items")
   priceOverride    Decimal? @db.Decimal(10, 2) @map("price_override")
   featured         Boolean  @default(false)
   kitTypeId        String   @map("kit_type_id")

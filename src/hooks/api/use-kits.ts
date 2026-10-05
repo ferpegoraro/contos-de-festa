@@ -19,6 +19,7 @@ export interface KitInput {
   slug?: string;
   description: string;
   shortDescription?: string | null;
+  includedItems?: string | null;
   /** Preço promocional — null/ausente herda o preço do tipo. */
   priceOverride?: number | null;
   featured?: boolean;
