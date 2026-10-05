@@ -133,7 +133,8 @@ export default function KitDetailPage({
                   </p>
                 )}
 
-                {/* Itens inclusos — do TIPO (compartilhados) + do KIT (específicos) */}
+                {/* Itens inclusos: os do KIT (se customizados) ou, senão, os
+                    PADRÃO do tipo. */}
                 {(() => {
                   const fromType = kit.kitType.items.map((it) =>
                     it.quantity != null ? `${it.name} ×${it.quantity}` : it.name,
@@ -142,7 +143,7 @@ export default function KitDetailPage({
                     .split(/\r?\n|,/)
                     .map((s) => s.trim())
                     .filter(Boolean);
-                  const included = [...fromType, ...fromKit];
+                  const included = fromKit.length > 0 ? fromKit : fromType;
                   if (included.length === 0) return null;
                   return (
                     <div className="mt-8">

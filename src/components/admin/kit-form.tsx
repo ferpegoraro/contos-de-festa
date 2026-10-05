@@ -25,6 +25,14 @@ function formatPrice(value: number): string {
   return value.toFixed(2).replace(".", ",");
 }
 
+/** Itens de um tipo como linhas de texto (ex.: "Arco ×2"). */
+function typeItemLines(type?: KitType): string[] {
+  if (!type) return [];
+  return type.items.map((it) =>
+    it.quantity != null ? `${it.name} ×${it.quantity}` : it.name,
+  );
+}
+
 export function KitForm({
   kit,
   categories,
@@ -45,12 +53,15 @@ export function KitForm({
   const [categoryId, setCategoryId] = useState(kit?.categoryId ?? "");
   const [featured, setFeatured] = useState(kit?.featured ?? false);
   // Lista de itens inclusos — cada item é uma linha. Adicionar NÃO apaga os outros.
-  const [items, setItems] = useState<string[]>(() =>
-    (kit?.includedItems ?? "")
+  // Começa com os itens próprios do kit; se não tiver, usa os PADRÃO do tipo.
+  const [items, setItems] = useState<string[]>(() => {
+    const own = (kit?.includedItems ?? "")
       .split(/\r?\n/)
       .map((s) => s.trim())
-      .filter(Boolean),
-  );
+      .filter(Boolean);
+    if (own.length > 0) return own;
+    return typeItemLines(kitTypes.find((t) => t.id === kit?.kitTypeId));
+  });
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   // Fotos escolhidas na hora de criar (sobem junto no "Criar kit").
@@ -162,7 +173,15 @@ export function KitForm({
           <select
             required
             value={kitTypeId}
-            onChange={(e) => setKitTypeId(e.target.value)}
+            onChange={(e) => {
+              const id = e.target.value;
+              setKitTypeId(id);
+              // Pré-preenche os itens padrão do tipo (só se a lista estiver vazia,
+              // pra não apagar o que você já tiver digitado).
+              if (items.length === 0) {
+                setItems(typeItemLines(kitTypes.find((t) => t.id === id)));
+              }
+            }}
             className={inputClass}
           >
             <option value="">Selecione...</option>
@@ -272,16 +291,28 @@ export function KitForm({
 
       {/* Itens inclusos — lista editável por kit. Adicionar não apaga os outros. */}
       <div>
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-2 gap-3">
           <span className="adm-label !mb-0">Itens inclusos</span>
-          <button
-            type="button"
-            onClick={() => setItems((prev) => [...prev, ""])}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold font-body text-[#e8a0b4] hover:text-white transition-colors"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            Adicionar item
-          </button>
+          <div className="flex items-center gap-4">
+            {selectedType && selectedType.items.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setItems(typeItemLines(selectedType))}
+                className="text-xs font-semibold font-body text-[#8f7681] hover:text-[#e8a0b4] transition-colors whitespace-nowrap"
+                title={`Substitui a lista pelos itens padrão do tipo ${selectedType.name}`}
+              >
+                Puxar do tipo
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setItems((prev) => [...prev, ""])}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold font-body text-[#e8a0b4] hover:text-white transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Adicionar item
+            </button>
+          </div>
         </div>
 
         {items.length === 0 ? (
