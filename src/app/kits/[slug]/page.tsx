@@ -133,12 +133,16 @@ export default function KitDetailPage({
                   </p>
                 )}
 
-                {/* Itens inclusos — texto livre do kit, um por linha/vírgula */}
+                {/* Itens inclusos — do TIPO (compartilhados) + do KIT (específicos) */}
                 {(() => {
-                  const included = (kit.includedItems ?? "")
+                  const fromType = kit.kitType.items.map((it) =>
+                    it.quantity != null ? `${it.name} ×${it.quantity}` : it.name,
+                  );
+                  const fromKit = (kit.includedItems ?? "")
                     .split(/\r?\n|,/)
                     .map((s) => s.trim())
                     .filter(Boolean);
+                  const included = [...fromType, ...fromKit];
                   if (included.length === 0) return null;
                   return (
                     <div className="mt-8">
