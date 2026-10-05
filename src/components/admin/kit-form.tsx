@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type FormEvent } from "react";
-import { ImagePlus, Loader2, X } from "lucide-react";
+import { ImagePlus, Loader2, Plus, Trash2, X } from "lucide-react";
 import { ApiError } from "@/lib/api/client";
 import {
   createKit,
@@ -44,8 +44,12 @@ export function KitForm({
   const [kitTypeId, setKitTypeId] = useState(kit?.kitTypeId ?? "");
   const [categoryId, setCategoryId] = useState(kit?.categoryId ?? "");
   const [featured, setFeatured] = useState(kit?.featured ?? false);
-  const [includedItems, setIncludedItems] = useState(
-    kit?.includedItems ?? "",
+  // Lista de itens inclusos — cada item é uma linha. Adicionar NÃO apaga os outros.
+  const [items, setItems] = useState<string[]>(() =>
+    (kit?.includedItems ?? "")
+      .split(/\r?\n/)
+      .map((s) => s.trim())
+      .filter(Boolean),
   );
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -91,7 +95,11 @@ export function KitForm({
       slug: slug.trim() || undefined,
       description,
       shortDescription: shortDescription.trim() || null,
-      includedItems: includedItems.trim() || null,
+      includedItems:
+        items
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .join("\n") || null,
       priceOverride: parsedOverride,
       kitTypeId,
       categoryId,
@@ -262,19 +270,62 @@ export function KitForm({
         />
       </Field>
 
-      {/* Itens inclusos — editável por kit (texto livre, vira lista com ✓) */}
-      <Field
-        label="Itens inclusos"
-        hint="Um item por linha (ex.: Arco de balões, Painel, 2 mesas). Aparece em lista com ✓ na página do kit."
-      >
-        <textarea
-          rows={4}
-          value={includedItems}
-          onChange={(e) => setIncludedItems(e.target.value)}
-          className={`${inputClass} resize-none`}
-          placeholder={"Arco de balões\nPainel temático\n2 mesas espelhadas"}
-        />
-      </Field>
+      {/* Itens inclusos — lista editável por kit. Adicionar não apaga os outros. */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="adm-label !mb-0">Itens inclusos</span>
+          <button
+            type="button"
+            onClick={() => setItems((prev) => [...prev, ""])}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold font-body text-[#e8a0b4] hover:text-white transition-colors"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            Adicionar item
+          </button>
+        </div>
+
+        {items.length === 0 ? (
+          <p
+            className="text-xs text-[#8f7681] font-body rounded-lg px-4 py-3"
+            style={{ border: "1px dashed var(--line-2)" }}
+          >
+            Nenhum item ainda. Clique em “Adicionar item” (ex.: Arco de balões,
+            Painel temático, 2 mesas espelhadas).
+          </p>
+        ) : (
+          <div className="space-y-2">
+            {items.map((it, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={it}
+                  onChange={(e) =>
+                    setItems((prev) =>
+                      prev.map((x, idx) => (idx === i ? e.target.value : x)),
+                    )
+                  }
+                  className={inputClass}
+                  placeholder="Ex: Arco de balões"
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setItems((prev) => prev.filter((_, idx) => idx !== i))
+                  }
+                  className="p-2.5 shrink-0 text-[#8f7681] hover:text-[#e26b7d] hover:bg-[#e26b7d]/10 rounded-xl transition-colors"
+                  aria-label="Remover item"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        <span className="adm-hint">
+          Cada item vira uma linha com ✓ na página do kit. Adicionar um novo não
+          apaga os outros.
+        </span>
+      </div>
 
       {/* Fotos — escolhidas agora, sobem junto ao criar o kit */}
       {!kit && (
